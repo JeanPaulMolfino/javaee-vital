@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-04-2020 a las 07:57:49
+-- Tiempo de generación: 09-04-2020 a las 08:29:05
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -45,6 +45,20 @@ CREATE TABLE `Historial` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Pasciente`
+--
+
+CREATE TABLE `Pasciente` (
+  `CI` int(11) NOT NULL,
+  `Nombre` int(11) NOT NULL,
+  `Apellido` int(11) NOT NULL,
+  `Edad` int(11) NOT NULL,
+  `ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `VeMeC`
 --
 
@@ -66,10 +80,33 @@ ALTER TABLE `Historial`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indices de la tabla `Pasciente`
+--
+ALTER TABLE `Pasciente`
+  ADD PRIMARY KEY (`CI`),
+  ADD KEY `ID` (`ID`);
+
+--
 -- Indices de la tabla `VeMeC`
 --
 ALTER TABLE `VeMeC`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `Historial`
+--
+ALTER TABLE `Historial`
+  ADD CONSTRAINT `Historial_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `VeMeC` (`ID`);
+
+--
+-- Filtros para la tabla `VeMeC`
+--
+ALTER TABLE `VeMeC`
+  ADD CONSTRAINT `VeMeC_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Pasciente` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
