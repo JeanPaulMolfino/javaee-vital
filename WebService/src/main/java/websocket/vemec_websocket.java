@@ -3,9 +3,6 @@ package websocket;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -20,7 +17,7 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/vemec")
 public class vemec_websocket {
     
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    //private Logger logger = Logger.getLogger(this.getClass().getName());
     private static Set<vemec_websocket> vemec_websockets = new CopyOnWriteArraySet<>();
 
     @OnMessage
@@ -33,7 +30,7 @@ public class vemec_websocket {
         try {
             vemec_websockets.add(this);
             sesion.getBasicRemote().sendText("Conectado");
-        } catch (Exception e) {
+        } catch (IOException e) {
         }
     }
 

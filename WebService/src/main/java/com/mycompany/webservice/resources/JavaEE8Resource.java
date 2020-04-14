@@ -36,4 +36,5 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
+    
 }
