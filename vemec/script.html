@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+       <script src="jquery.js"></script>
+	<script src="moment.js"></script>
+      <script type="text/javascript">
+       	var ws;
+	var alerta = 0;
+          function IniciarConexion(){
+                ws= new WebSocket("ws://localhost:8080/WebService/vemec");
+                ws.onopen= function(){
+                    alert("Conexión Abierta, Puedes enviar Mensajes");
+                }
+                ws.onmessage= function(Mensajes){
+                    var MensajesObtenidos=Mensajes.data;
+                    alert("Mensajes obtenidos  son:"+MensajesObtenidos);
+                }
+                ws.onclose= function(){
+                alert("Conexión Cerrada");
+                }
+          }
+		function alertar(){
+		        alerta = 1;
+          	}
+
+	function getRandomArbitrary(min, max) {
+  		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	function sleep(milliseconds) {
+	 var start = new Date().getTime();
+	 for (var i = 0; i < 1e7; i++) {
+	  if ((new Date().getTime() - start) > milliseconds) {
+	   break;
+	  }
+	 }
+	}
+		var counter = 0;
+		var matriz = new Array();
+
+		function crearJson(){
+			counter++;
+			var arreglo = new Object();
+			arreglo.id = 1;
+
+			if(alerta == 1){
+				arreglo.presionmax = 1;
+			} else {
+				arreglo.presionmax = getRandomArbitrary(1, 10);
+			}
+			
+			arreglo.presionmin = getRandomArbitrary(1, 10);
+			arreglo.volumendegas = getRandomArbitrary(1, 10);
+			arreglo.frecuenciaaporte = getRandomArbitrary(1, 10);
+			arreglo.composicionmezcla = getRandomArbitrary(1, 10);
+			arreglo.humedadaire = getRandomArbitrary(1, 10);
+			arreglo.temperaturaentrada = getRandomArbitrary(1, 10);
+			arreglo.temperaturasalida = getRandomArbitrary(1, 10);
+			arreglo.presionentrada = getRandomArbitrary(1, 10);
+			arreglo.presionsalida = getRandomArbitrary(1, 10);
+			arreglo.fecha = moment().format('HH:mm:ss DD/MM/YYYY');
+
+			matriz.push(arreglo);
+			if(counter == 29 || alerta == 1){
+
+				var alertaf = new Object();
+				alertaf.alerta = alerta;
+				matriz.push(alertaf);
+
+				var json = JSON.stringify(matriz);
+				ws.send(json);
+				console.log(json);
+				matriz = new Array();
+				counter = 0;
+			}
+          	}
+		window.onload = IniciarConexion();
+		window.onload = setInterval('crearJson()',2000);
+	
+       </script>
+   </head>
+   <body>
+      <div>
+          <input type="button" onclick="alertar()" id="btnAlert" value="Enviar Alerta">
+      </div>
+      
+   </body>
+</html>
