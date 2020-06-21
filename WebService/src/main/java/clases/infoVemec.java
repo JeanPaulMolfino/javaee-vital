@@ -12,27 +12,27 @@ import java.util.List;
  * @author javaee
  */
 public class infoVemec {
-    private int id;
+    private int idvemec;
     private Boolean alerta;
     private List<medidaVemec> datos;
 
     public infoVemec() {
     }
 
-    public infoVemec(int id, Boolean alerta, List<medidaVemec> datos) {
-        this.id = id;
+    public infoVemec(int idvemec, Boolean alerta, List<medidaVemec> datos) {
+        this.idvemec = idvemec;
         this.alerta = alerta;
         this.datos = datos;
     }
 
-    public int getId() {
-        return id;
+    public int getIdvemec() {
+        return idvemec;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdvemec(int idvemec) {
+        this.idvemec = idvemec;
     }
-
+    
     public Boolean getAlerta() {
         return alerta;
     }

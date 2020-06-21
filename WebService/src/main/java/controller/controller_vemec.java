@@ -101,7 +101,7 @@ public class controller_vemec {
             
             for (medidaVemec medida : info.getDatos()) {
                 String[] variables = {
-                    Integer.toString(info.getId()), 
+                    Integer.toString(info.getIdvemec()), 
                     medida.getFecha().toString(),
                     Integer.toString(medida.getPresionmax()), 
                     Integer.toString(medida.getPresionmin()),
@@ -114,7 +114,7 @@ public class controller_vemec {
                     Integer.toString(medida.getPresionentrada()), 
                     Integer.toString(medida.getPresionsalida())
                 };
-                String sql = "insert into historial("
+                String sql = "insert into historiales("
                         + "idvemec, "
                         + "timestap, "
                         + "presionmaxima, "
@@ -127,11 +127,12 @@ public class controller_vemec {
                         + "tempsalida, "
                         + "presentrada, "
                         + "pressalida) "
-                        + "values (?,?,?,?,?,?,?,?,?,?,?,?)";
+                        + "values (?,?,?,?,?,?,?,?,?,?,?,?);";
+                
                 this.jdbcTemplate.update(sql, variables);
             }
         } catch (DataAccessException e) {
-
+            throw  e;
         }
     }
 
