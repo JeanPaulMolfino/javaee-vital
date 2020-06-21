@@ -29,35 +29,35 @@ public class controller_vemec {
     public Boolean create_vemec(String marca, String modelo, String ubicacion) {
         String[] variables = {marca, modelo, ubicacion};
         try {
-            String sql = "insert into vemec(marca, modelo, ubicacion) values (?,?,?)";
+            String sql = "insert into vemecs(marca, modelo, ubicacion) values (?,?,?)";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
-
+            e.printStackTrace();
         }
         return false;
     }
 
-    public Boolean update_vemec(vemec selected) {
-        String[] variables = {selected.getMarca(), selected.getModelo(), selected.getUbicacion(), Integer.toString(selected.getId())};
+    public Boolean update_vemec(String idVemec, String marca, String modelo, String ubicacion) {
+        String[] variables = {marca, modelo, ubicacion, idVemec};
         try {
             String sql = "update vemecs set marca=?, modelo=?, ubicacion=? where id = ?";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
-
+            e.printStackTrace();
         }
         return false;
     }
 
-    public Boolean delete_vemec(vemec selected) {
-        String[] variables = {Integer.toString(selected.getId())};
+    public Boolean delete_vemec(String selected) {
+        String[] variables = {selected};
         try {
-            String sql = "delete from mensajes where id = ?";
+            String sql = "delete from vemecs where id = ?";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
-
+            e.printStackTrace();
         }
         return false;
     }
@@ -66,7 +66,7 @@ public class controller_vemec {
         String sql = "select * from vemecs";
         List<vemec> datos = null;
         //
-            datos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper(vemec.class));
+        datos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper(vemec.class));
         //} catch (DataAccessException e) {
 
         //}
@@ -90,28 +90,28 @@ public class controller_vemec {
                 }
             });
         } catch (DataAccessException e) {
-
+            e.printStackTrace();
         }
         return result;
     }
-    
-    public void data_vemec(infoVemec info){
+
+    public void data_vemec(infoVemec info) {
         //ToDo Insertar Registros Base de datos
         try {
-            
+
             for (medidaVemec medida : info.getDatos()) {
                 String[] variables = {
-                    Integer.toString(info.getIdvemec()), 
+                    Integer.toString(info.getIdvemec()),
                     medida.getFecha().toString(),
-                    Integer.toString(medida.getPresionmax()), 
+                    Integer.toString(medida.getPresionmax()),
                     Integer.toString(medida.getPresionmin()),
-                    Integer.toString(medida.getVolumendegas()), 
+                    Integer.toString(medida.getVolumendegas()),
                     Integer.toString(medida.getFrecuenciaaporte()),
-                    Integer.toString(medida.getComposicionmezcla()), 
+                    Integer.toString(medida.getComposicionmezcla()),
                     Integer.toString(medida.getHumedadaire()),
-                    Integer.toString(medida.getTemperaturaentrada()), 
-                    Integer.toString(medida.getTemperaturasalida()), 
-                    Integer.toString(medida.getPresionentrada()), 
+                    Integer.toString(medida.getTemperaturaentrada()),
+                    Integer.toString(medida.getTemperaturasalida()),
+                    Integer.toString(medida.getPresionentrada()),
                     Integer.toString(medida.getPresionsalida())
                 };
                 String sql = "insert into historiales("
@@ -128,11 +128,11 @@ public class controller_vemec {
                         + "presentrada, "
                         + "pressalida) "
                         + "values (?,?,?,?,?,?,?,?,?,?,?,?);";
-                
+
                 this.jdbcTemplate.update(sql, variables);
             }
         } catch (DataAccessException e) {
-            throw  e;
+            throw e;
         }
     }
 

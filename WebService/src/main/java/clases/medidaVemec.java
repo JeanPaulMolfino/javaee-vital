@@ -12,6 +12,7 @@ import java.util.Date;
  * @author javaee
  */
 public class medidaVemec {
+
     private int presionmin;
     private int presionmax;
     private int volumendegas;
@@ -48,8 +49,6 @@ public class medidaVemec {
         this.presionsalida = presionsalida;
         this.fecha = fecha;
     }
-
-    
 
     public int getPresionmin() {
         return presionmin;

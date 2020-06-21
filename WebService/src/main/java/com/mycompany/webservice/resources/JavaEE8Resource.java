@@ -8,26 +8,28 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
  *
- * @author 
+ * @author
  */
 @Path("javaee8")
 public class JavaEE8Resource {
+
     @GET
-    public Response ping(){
+    public Response ping() {
         return Response
                 .ok("ping")
                 .build();
     }
-    
+
     @GET
     @Path("/listallvemecs")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response test(){
+    public Response test() {
         List<vemec> result = controller_vemec.getInstance().read_vemec();
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
         String resultado = convertir.toJson(result);
@@ -36,5 +38,44 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
+    @GET
+    @Path("/createvemec")
+    public Response createVemec(
+            @QueryParam("marca") String marca,
+            @QueryParam("modelo") String modelo,
+            @QueryParam("ubicacion") String ubicacion) {
+        controller_vemec.getInstance().create_vemec(marca, modelo, ubicacion);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+
+    @GET
+    @Path("/updatevemec")
+    public Response updateVemec(
+            @QueryParam("idVemec") String idVemec,
+            @QueryParam("marca") String marca,
+            @QueryParam("modelo") String modelo,
+            @QueryParam("ubicacion") String ubicacion) {
+        controller_vemec.getInstance().update_vemec(idVemec, marca, modelo, ubicacion);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+
+    @GET
+    @Path("/deletevemec")
+    public Response deleteVemec(
+            @QueryParam("idVemec") String idVemec
+    ) {
+        controller_vemec.getInstance().delete_vemec(idVemec);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+
 }

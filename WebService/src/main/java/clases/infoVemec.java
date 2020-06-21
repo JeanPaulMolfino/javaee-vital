@@ -12,6 +12,7 @@ import java.util.List;
  * @author javaee
  */
 public class infoVemec {
+
     private int idvemec;
     private Boolean alerta;
     private List<medidaVemec> datos;
@@ -32,7 +33,7 @@ public class infoVemec {
     public void setIdvemec(int idvemec) {
         this.idvemec = idvemec;
     }
-    
+
     public Boolean getAlerta() {
         return alerta;
     }
@@ -48,6 +49,5 @@ public class infoVemec {
     public void setDatos(List<medidaVemec> datos) {
         this.datos = datos;
     }
-    
-    
+
 }

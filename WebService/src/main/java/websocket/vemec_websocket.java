@@ -19,12 +19,12 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/vemec")
 public class vemec_websocket {
-    
+
     //private Logger logger = Logger.getLogger(this.getClass().getName());
     private static Set<vemec_websocket> vemec_websockets = new CopyOnWriteArraySet<>();
 
     @OnMessage
-    public void onMessage(final String message, Session client) throws IOException{
+    public void onMessage(final String message, Session client) throws IOException {
         //client.getBasicRemote().sendText("Hello");  
         Gson gson = new Gson();
         infoVemec info = gson.fromJson(message, infoVemec.class);
