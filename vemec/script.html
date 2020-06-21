@@ -7,7 +7,7 @@
 	<script src="moment.js"></script>
       <script type="text/javascript">
        	var ws;
-	var alerta = 0;
+	var alerta = false;
           function IniciarConexion(){
                 ws= new WebSocket("ws://localhost:8080/WebService/vemec");
                 ws.onopen= function(){
@@ -22,7 +22,7 @@
                 }
           }
 		function alertar(){
-		        alerta = 1;
+		        alerta = true;
           	}
 
 	function getRandomArbitrary(min, max) {
@@ -44,7 +44,7 @@
 			var arreglo = new Object();
 			arreglo.id = 1;
 
-			if(alerta == 1){
+			if(alerta == true){
 				arreglo.presionmax = 1;
 			} else {
 				arreglo.presionmax = getRandomArbitrary(1, 10);
@@ -62,13 +62,16 @@
 			arreglo.fecha = moment().format('HH:mm:ss DD/MM/YYYY');
 
 			matriz.push(arreglo);
-			if(counter == 29 || alerta == 1){
+			if(counter == 29 || alerta == true){
 
-				var alertaf = new Object();
-				alertaf.alerta = alerta;
-				matriz.push(alertaf);
-
-				var json = JSON.stringify(matriz);
+				//var alertaf = new Object();
+				//alertaf.alerta = alerta;
+				//matriz.push(alertaf);
+				
+				var result = new Object();
+				result.alerta = alerta;
+				result.datos = matriz;
+				var json = JSON.stringify(result);
 				ws.send(json);
 				console.log(json);
 				matriz = new Array();
