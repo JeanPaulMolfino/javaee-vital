@@ -1,9 +1,12 @@
 package controller;
 
 import Config.conexion;
+import clases.infoVemec;
+import clases.medidaVemec;
 import clases.vemec;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -90,6 +93,46 @@ public class controller_vemec {
 
         }
         return result;
+    }
+    
+    public void data_vemec(infoVemec info){
+        //ToDo Insertar Registros Base de datos
+        try {
+            
+            for (medidaVemec medida : info.getDatos()) {
+                String[] variables = {
+                    Integer.toString(info.getId()), 
+                    medida.getFecha().toString(),
+                    Integer.toString(medida.getPresionmax()), 
+                    Integer.toString(medida.getPresionmin()),
+                    Integer.toString(medida.getVolumendegas()), 
+                    Integer.toString(medida.getFrecuenciaaporte()),
+                    Integer.toString(medida.getComposicionmezcla()), 
+                    Integer.toString(medida.getHumedadaire()),
+                    Integer.toString(medida.getTemperaturaentrada()), 
+                    Integer.toString(medida.getTemperaturasalida()), 
+                    Integer.toString(medida.getPresionentrada()), 
+                    Integer.toString(medida.getPresionsalida())
+                };
+                String sql = "insert into historial("
+                        + "idvemec, "
+                        + "timestap, "
+                        + "presionmaxima, "
+                        + "presionminima, "
+                        + "volgasaporta, "
+                        + "frecaporte, "
+                        + "compomezcla, "
+                        + "humedadaire, "
+                        + "tempentrada, "
+                        + "tempsalida, "
+                        + "presentrada, "
+                        + "pressalida) "
+                        + "values (?,?,?,?,?,?,?,?,?,?,?,?)";
+                this.jdbcTemplate.update(sql, variables);
+            }
+        } catch (DataAccessException e) {
+
+        }
     }
 
 }

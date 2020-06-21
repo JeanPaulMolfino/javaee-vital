@@ -1,5 +1,7 @@
 package websocket;
 
+import clases.infoVemec;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -22,7 +24,9 @@ public class vemec_websocket {
 
     @OnMessage
     public void onMessage(final String message, Session client) throws IOException{
-        client.getBasicRemote().sendText("Hello");      
+        //client.getBasicRemote().sendText("Hello");  
+        Gson gson = new Gson();
+        infoVemec info = gson.fromJson(message, infoVemec.class);
     }
 
     @OnOpen
