@@ -23,6 +23,16 @@
       <script type="text/javascript">
        	var ws;
 	var alerta = false;
+	var presionmax = 10;
+	var presionmin = 4;
+	var volumendegas= 20;
+	var frecuenciaaporte= 15;
+	var composicionmezcla= 3;
+	var humedadaire= 36;
+	var temperaturaentrada= 12;
+	var temperaturasalida= 12;
+	var presionentrada= 20;
+	var presionsalida= 20;
 
           function IniciarConexion(){
                 ws= new WebSocket("ws://localhost:8080/WebService/vemec");
@@ -62,19 +72,21 @@
 
 			if(alerta == true){
 				arreglo.presionmax = 1;
+				arreglo.presionmin = 1;
 			} else {
-				arreglo.presionmax = getRandomArbitrary(1, 10);
+				arreglo.presionmax = presionmax + getRandomArbitrary(-2, 2);
+				arreglo.presionmin = presionmin + getRandomArbitrary(-2, 2);
 			}
 			
-			arreglo.presionmin = getRandomArbitrary(1, 10);
-			arreglo.volumendegas = getRandomArbitrary(1, 10);
-			arreglo.frecuenciaaporte = getRandomArbitrary(1, 10);
-			arreglo.composicionmezcla = getRandomArbitrary(1, 10);
-			arreglo.humedadaire = getRandomArbitrary(1, 10);
-			arreglo.temperaturaentrada = getRandomArbitrary(1, 10);
-			arreglo.temperaturasalida = getRandomArbitrary(1, 10);
-			arreglo.presionentrada = getRandomArbitrary(1, 10);
-			arreglo.presionsalida = getRandomArbitrary(1, 10);
+			
+			arreglo.volumendegas = volumendegas + getRandomArbitrary(-2, 2);
+			arreglo.frecuenciaaporte = frecuenciaaporte + getRandomArbitrary(-2, 2);
+			arreglo.composicionmezcla = composicionmezcla + getRandomArbitrary(-2, 2);
+			arreglo.humedadaire = humedadaire + getRandomArbitrary(-2, 2);
+			arreglo.temperaturaentrada = temperaturaentrada + getRandomArbitrary(-2, 2);
+			arreglo.temperaturasalida = temperaturasalida + getRandomArbitrary(-2, 2);
+			arreglo.presionentrada = presionentrada + getRandomArbitrary(-2, 2);
+			arreglo.presionsalida = presionsalida + getRandomArbitrary(-2, 2);
 			arreglo.fecha = moment().format('HH:mm:ss DD/MM/YYYY');
 
 			matriz.push(arreglo);
