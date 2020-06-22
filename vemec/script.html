@@ -1,6 +1,21 @@
 <!DOCTYPE HTML>
 <html>
    <head>
+   <style>
+	.button {
+ 	 background-color: #4CAF50; 
+  	border: none;
+  	color: white;
+  	padding: 20px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 16px;
+  	margin: 4px 2px;
+  	cursor: pointer;
+	}
+   </style>
+
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
        <script src="jquery.js"></script>
@@ -8,26 +23,27 @@
       <script type="text/javascript">
        	var ws;
 	var alerta = false;
+
           function IniciarConexion(){
                 ws= new WebSocket("ws://localhost:8080/WebService/vemec");
                 ws.onopen= function(){
-                    ws.send("Conexión Abierta, Puedes enviar Mensajes");
-                }
-                ws.onmessage= function(Mensajes){
-                    var MensajesObtenidos=Mensajes.data;
-                    ws.send("Mensajes obtenidos  son:"+MensajesObtenidos);
+                    console.log("Conexión Abierta, Puedes enviar Mensajes");
                 }
                 ws.onclose= function(){
-                ws.send("Conexión Cerrada");
+                console.log("Conexión Cerrada");
                 }
           }
+
 		function alertar(){
-		        alerta = true;
+		       if(alerta == true){
+				alerta = false;
+			}else{ alerta = true;}
           	}
 
 	function getRandomArbitrary(min, max) {
   		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
+
 	function sleep(milliseconds) {
 	 var start = new Date().getTime();
 	 for (var i = 0; i < 1e7; i++) {
@@ -74,6 +90,7 @@
 				result.datos = matriz;
 				var json = JSON.stringify(result);
 				ws.send(json);
+				console.log("MODO DE ALERTA");
 				console.log(json);
 				matriz = new Array();
 				counter = 0;
@@ -85,8 +102,8 @@
        </script>
    </head>
    <body>
-      <div>
-          <input type="button" onclick="alertar()" id="btnAlert" value="Enviar Alerta">
+      <div>	  
+          <input type="button" class="button" onclick="alertar()" id="btnAlert" value="MODIFICAR ALERTA">	
       </div>
       
    </body>
