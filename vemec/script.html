@@ -21,7 +21,8 @@
        <script src="jquery.js"></script>
 	<script src="moment.js"></script>
       <script type="text/javascript">
-       	var ws;
+       	var ws;	
+	var idvemec;
 	var alerta = false;
 	var presionmax = 10;
 	var presionmin = 4;
@@ -64,7 +65,7 @@
 	}
 		var counter = 0;
 		var matriz = new Array();
-		var idvemec = 1;
+		//var idvemec = ($('#idvemec').val());
 		function crearJson(){
 			counter++;
 			var arreglo = new Object();
@@ -111,12 +112,21 @@
 			}
           	}
 		window.onload = IniciarConexion();
-		window.onload = setInterval('crearJson()',2000);
+		//window.onload = setInterval('crearJson()',2000);
 	
        </script>
    </head>
    <body>
-      <div>	  
+      <div>
+	  <input type="text" id="idvemec" placeholder="Id del VeMec"/>
+          <input type="submit" id="btnEnviar" value="Confirmar Id">
+	  <script>
+           $('#btnEnviar').click(function(){
+	    idvemec = ($('#idvemec').val());
+            setInterval('crearJson()',2000);
+	    console.log("Id seleccionado, generando reportes.");
+            });
+          </script>	  
           <input type="button" class="button" onclick="alertar()" id="btnAlert" value="MODIFICAR ALERTA">	
       </div>
       
