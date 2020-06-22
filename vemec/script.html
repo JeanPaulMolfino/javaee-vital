@@ -11,14 +11,14 @@
           function IniciarConexion(){
                 ws= new WebSocket("ws://localhost:8080/WebService/vemec");
                 ws.onopen= function(){
-                    alert("Conexión Abierta, Puedes enviar Mensajes");
+                    ws.send("Conexión Abierta, Puedes enviar Mensajes");
                 }
                 ws.onmessage= function(Mensajes){
                     var MensajesObtenidos=Mensajes.data;
-                    alert("Mensajes obtenidos  son:"+MensajesObtenidos);
+                    ws.send("Mensajes obtenidos  son:"+MensajesObtenidos);
                 }
                 ws.onclose= function(){
-                alert("Conexión Cerrada");
+                ws.send("Conexión Cerrada");
                 }
           }
 		function alertar(){
