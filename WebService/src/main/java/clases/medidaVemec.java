@@ -12,6 +12,7 @@ import java.util.Date;
  * @author javaee
  */
 public class medidaVemec {
+
     private int presionmin;
     private int presionmax;
     private int volumendegas;
@@ -22,7 +23,7 @@ public class medidaVemec {
     private int temperaturasalida;
     private int presionentrada;
     private int presionsalida;
-    private Date fecha;
+    private String fecha;
 
     public int getPresionmax() {
         return presionmax;
@@ -35,7 +36,7 @@ public class medidaVemec {
     public medidaVemec() {
     }
 
-    public medidaVemec(int presionmin, int presionmax, int volumendegas, int frecuenciaaporte, int composicionmezcla, int humedadaire, int temperaturaentrada, int temperaturasalida, int presionentrada, int presionsalida, Date fecha) {
+    public medidaVemec(int presionmin, int presionmax, int volumendegas, int frecuenciaaporte, int composicionmezcla, int humedadaire, int temperaturaentrada, int temperaturasalida, int presionentrada, int presionsalida, String fecha) {
         this.presionmin = presionmin;
         this.presionmax = presionmax;
         this.volumendegas = volumendegas;
@@ -48,8 +49,6 @@ public class medidaVemec {
         this.presionsalida = presionsalida;
         this.fecha = fecha;
     }
-
-    
 
     public int getPresionmin() {
         return presionmin;
@@ -123,11 +122,11 @@ public class medidaVemec {
         this.presionsalida = presionsalida;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
