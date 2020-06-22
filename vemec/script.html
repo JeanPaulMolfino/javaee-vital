@@ -90,7 +90,9 @@
 				result.datos = matriz;
 				var json = JSON.stringify(result);
 				ws.send(json);
-				console.log("MODO DE ALERTA");
+				if(alerta == true){				
+					console.log("MODO DE ALERTA");
+				}
 				console.log(json);
 				matriz = new Array();
 				counter = 0;
