@@ -105,4 +105,16 @@ public class JavaEE8Resource {
                 .build();
     }
     
+    @GET
+    @Path("/read_vemecdata_3minutes")
+    public Response read_vemecdata_3minutes(
+            @QueryParam("id") String id) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_vemecdata_3minutes(id));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
 }
