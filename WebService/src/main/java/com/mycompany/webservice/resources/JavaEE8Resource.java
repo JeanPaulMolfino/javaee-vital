@@ -40,9 +40,9 @@ public class JavaEE8Resource {
     }
     
     @GET
-    @Path("/listallvemecs2")
+    @Path("/vemecspaciente")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response test2() {
+    public Response listvemecsynombre() {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
         String resultado = convertir.toJson(controller_vemec.getInstance().read_vemec2());
         return Response

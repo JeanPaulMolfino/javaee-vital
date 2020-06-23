@@ -74,13 +74,14 @@ public class controller_vemec {
     }
     
     public Object read_vemec2() {
-        String sql = "select * from vemecs";
+        String sql = "select v.id, v.marca, v.modelo, v.ubicacion, p.nombre, p.apellido, p.ci from vemecs as v left join pacientes as p on v.idpaciente = p.id";
         List<Object> datos = null;
+        try {
         //
         datos = this.jdbcTemplate.queryForList(sql);
-        //} catch (DataAccessException e) {
-
-        //}
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
         return datos;
     }
 
