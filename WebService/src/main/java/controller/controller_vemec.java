@@ -152,7 +152,7 @@ public class controller_vemec {
         List<Object> result = null;
         String[] variables = {idvemec};
         try {
-            String sql = "SELECT h.* FROM historiales as h where h.idvemec = ? and h.timestap >= date_sub(NOW(), INTERVAL '3:0' MINUTE_SECOND) order by h.timestap DESC";
+            String sql = "SELECT h.* FROM historiales as h where h.idvemec = ? and h.timestap >= date_sub(NOW(), INTERVAL '3:0' MINUTE_SECOND) order by h.timestap ASC";
             result = this.jdbcTemplate.queryForList(sql, variables);
         } catch (DataAccessException e) {
             e.printStackTrace();
