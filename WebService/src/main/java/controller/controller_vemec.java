@@ -61,11 +61,11 @@ public class controller_vemec {
         return false;
     }
 
-    public List<vemec> read_vemec() {
-        String sql = "select v.id, v.marca, v.modelo, concat(p.nombre, ' ', p.apellido, ' ', p.ci) from vemecs as v left join pacientes as p on v.idpaciente = p.id";
-        List<vemec> datos = null;
+    public List<Object> read_vemec() {
+        String sql = "select v.id, v.marca, v.modelo, concat(p.nombre, ' ', p.apellido, ' ', p.ci) as paciente from vemecs as v left join pacientes as p on v.idpaciente = p.id";
+        List<Object> datos = null;
         try {
-            datos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper(vemec.class));
+            datos = this.jdbcTemplate.queryForList(sql);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }

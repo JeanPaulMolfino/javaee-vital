@@ -31,9 +31,8 @@ public class JavaEE8Resource {
     @Path("/listallvemecs")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listallvemecs() {
-        List<vemec> result = controller_vemec.getInstance().read_vemec();
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
-        String resultado = convertir.toJson(result);
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_vemec());
         return Response
                 .ok("ping")
                 .entity(resultado)
