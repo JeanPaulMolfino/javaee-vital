@@ -62,7 +62,7 @@ public class controller_vemec {
     }
 
     public List<vemec> read_vemec() {
-        String sql = "select * from vemecs";
+        String sql = "select v.id, v.marca, v.modelo, concat(p.nombre, ' ', p.apellido, ' ', p.ci) from vemecs as v left join pacientes as p on v.idpaciente = p.id";
         List<vemec> datos = null;
         try {
             datos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper(vemec.class));
@@ -147,11 +147,36 @@ public class controller_vemec {
             throw e;
         }
     }
+
     public List<Object> read_vemecdata_3minutes(String idvemec) {
         List<Object> result = null;
         String[] variables = {idvemec};
         try {
             String sql = "SELECT h.* FROM historiales as h where h.idvemec = ? and h.timestap >= date_sub(NOW(), INTERVAL '3:0' MINUTE_SECOND) order by h.timestap DESC";
+            result = this.jdbcTemplate.queryForList(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<Object> read_vemecdata(String idvemec) {
+        List<Object> result = null;
+        String[] variables = {idvemec};
+        try {
+            String sql = "SELECT "
+                    + "timestap, "
+                    + "presionmaxima, "
+                    + "presionminima, "
+                    + "volgasaporta, "
+                    + "frecaporte, "
+                    + "compomezcla, "
+                    + "humedadaire, "
+                    + "tempentrada, "
+                    + "tempsalida, "
+                    + "presentrada, "
+                    + "pressalida"
+                    + " FROM historiales where idvemec = ? order by timestap DESC";
             result = this.jdbcTemplate.queryForList(sql, variables);
         } catch (DataAccessException e) {
             e.printStackTrace();
