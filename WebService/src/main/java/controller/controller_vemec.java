@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -142,6 +141,7 @@ public class controller_vemec {
                         + "values (?,?,?,?,?,?,?,?,?,?,?,?,(Select idpaciente from vemecs where id=?));";
 
                 this.jdbcTemplate.update(sql, variables);
+                this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + " where id=" + info.getIdvemec());
             }
         } catch (DataAccessException e) {
             throw e;
