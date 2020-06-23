@@ -29,10 +29,22 @@ public class JavaEE8Resource {
     @GET
     @Path("/listallvemecs")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response test() {
+    public Response listallvemecs() {
         List<vemec> result = controller_vemec.getInstance().read_vemec();
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
         String resultado = convertir.toJson(result);
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
+    @GET
+    @Path("/listallvemecs2")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response test2() {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_vemec2());
         return Response
                 .ok("ping")
                 .entity(resultado)

@@ -72,6 +72,17 @@ public class controller_vemec {
         //}
         return datos;
     }
+    
+    public Object read_vemec2() {
+        String sql = "select * from vemecs";
+        List<Object> datos = null;
+        //
+        datos = this.jdbcTemplate.queryForList(sql);
+        //} catch (DataAccessException e) {
+
+        //}
+        return datos;
+    }
 
     public vemec find_vemec(int id) {
         String[] variables = {Integer.toString(id)};
