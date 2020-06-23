@@ -3,6 +3,7 @@ package com.mycompany.webservice.resources;
 import clases.vemec;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import controller.controller_paciente;
 import controller.controller_vemec;
 import java.util.List;
 import javax.ws.rs.GET;
@@ -90,4 +91,18 @@ public class JavaEE8Resource {
                 .build();
     }
 
+    @GET
+    @Path("/createpaciente")
+    public Response createPaciente(
+            @QueryParam("ci") String ci,
+            @QueryParam("nombre") String nombre,
+            @QueryParam("apellido") String apellido,
+            @QueryParam("edad") String edad) {
+        controller_paciente.getInstance().create_pacientes(ci, nombre, apellido, edad);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
 }

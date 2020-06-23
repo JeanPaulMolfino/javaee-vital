@@ -6,7 +6,6 @@ import clases.medidaVemec;
 import clases.vemec;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -65,20 +64,19 @@ public class controller_vemec {
     public List<vemec> read_vemec() {
         String sql = "select * from vemecs";
         List<vemec> datos = null;
-        //
-        datos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper(vemec.class));
-        //} catch (DataAccessException e) {
-
-        //}
+        try {
+            datos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper(vemec.class));
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
         return datos;
     }
-    
+
     public Object read_vemec2() {
         String sql = "select v.id, v.marca, v.modelo, v.ubicacion, p.nombre, p.apellido, p.ci from vemecs as v left join pacientes as p on v.idpaciente = p.id";
         List<Object> datos = null;
         try {
-        //
-        datos = this.jdbcTemplate.queryForList(sql);
+            datos = this.jdbcTemplate.queryForList(sql);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -89,7 +87,7 @@ public class controller_vemec {
         String[] variables = {Integer.toString(id)};
         vemec result = null;
         try {
-            String sql = "delete from mensajes where id = " + id;
+            String sql = "select * from vemecs where id = " + id;
             result = (vemec) this.jdbcTemplate.queryForObject(sql,
                     new Object[]{id}, new RowMapper() {
                 public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
