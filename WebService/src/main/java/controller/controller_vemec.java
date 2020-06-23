@@ -122,7 +122,8 @@ public class controller_vemec {
                     Integer.toString(medida.getTemperaturaentrada()),
                     Integer.toString(medida.getTemperaturasalida()),
                     Integer.toString(medida.getPresionentrada()),
-                    Integer.toString(medida.getPresionsalida())
+                    Integer.toString(medida.getPresionsalida()),
+                    Integer.toString(info.getIdvemec())
                 };
                 String sql = "insert into historiales("
                         + "idvemec, "
@@ -136,8 +137,9 @@ public class controller_vemec {
                         + "tempentrada, "
                         + "tempsalida, "
                         + "presentrada, "
-                        + "pressalida) "
-                        + "values (?,?,?,?,?,?,?,?,?,?,?,?);";
+                        + "pressalida,"
+                        + "idpaciente) "
+                        + "values (?,?,?,?,?,?,?,?,?,?,?,?,(Select idpaciente from vemecs where id=?));";
 
                 this.jdbcTemplate.update(sql, variables);
             }
