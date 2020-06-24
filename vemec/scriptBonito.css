@@ -1,0 +1,31 @@
+.navbar-nav > li{
+  padding-left:30px;
+  padding-right:30px;
+}
+
+.nav-item > label{
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 25px;
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	color: #CBCBCB;
+	font-weight: 400;
+	text-decoration: rgb(68, 68, 68);
+	font-style: normal;
+	font-variant: small-caps;
+	text-transform: capitalize;
+}
+
+body{
+	background-color: #29e1e2;
+}
+
+.my-custom-scrollbar {
+	position: relative;
+	height: 600px;
+	overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+	display: block;
+}
