@@ -183,4 +183,15 @@ public class controller_vemec {
         }
         return result;
     }
+    
+    public List<Object> read_alertas() {
+        String sql = "select v.id as idvemec, concat(p.nombre, ' ', p.apellido) as paciente, v.ubicacion from vemecs as v inner join pacientes as p where v.alerta=1 and v.idpaciente = p.id";
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
 }

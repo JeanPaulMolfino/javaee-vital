@@ -127,5 +127,16 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
+    @GET
+    @Path("/read_alertas")
+    public Response read_alertas(
+            @QueryParam("id") String id) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_alertas());
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
 }
