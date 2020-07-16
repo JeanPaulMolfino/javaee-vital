@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="./bootstrap.css">
-	<script src="./bootstrap.js" type="text/javascript"></script>
 	<script src="./jquery.js"></script>
+	<link rel="stylesheet" href="./bootstrap.css">
+	<script src="./bootstrap.js" type="text/javascript"></script>	
 	<script src="./moment.js"></script>
 	<link rel="stylesheet" href="./scriptBonito.css">
 	<title>Emulador VeMec</title>
@@ -12,6 +12,7 @@
 		var ws;	
 		var idvemec;
 		var alerta = false;
+		var alertaBateria = false;
 		var presionmax = 10;
 		var presionmin = 4;
 		var volumendegas= 20;
@@ -34,9 +35,25 @@
 		}
 
 		function alertar(){
+			var div1 = document.getElementById("btnAlert1");
 			if(alerta == true){
 				alerta = false;
-			}else{ alerta = true;}
+				div1.style.backgroundColor = "green";
+			}else{ 
+				alerta = true;
+				div1.style.backgroundColor = "red";
+			}
+		}
+
+		function alertarBateria(){
+			var div1 = document.getElementById("btnAlert");
+			if(alertaBateria == true){
+				alertaBateria = false;
+				div1.style.backgroundColor = "green";
+			}else{
+				alertaBateria = true;
+				div1.style.backgroundColor = "red";
+			}
 		}
 
 		function getRandomArbitrary(min, max) {
@@ -79,7 +96,7 @@
 			arreglo.fecha = moment().format('YYYY-MM-DD HH:mm:ss');
 
 			matriz.push(arreglo);
-			if(counter == 29 || alerta == true){
+			if(counter == 5 || alerta == true){
 
 				//var alertaf = new Object();
 				//alertaf.alerta = alerta;
@@ -88,6 +105,7 @@
 				var result = new Object();
 				result.idvemec = idvemec;
 				result.alerta = alerta;
+				result.alertaBateria = alertaBateria;
 				result.datos = matriz;
 				var json = JSON.stringify(result);
 				ws.send(json);
@@ -109,6 +127,7 @@
 			console.log("Id seleccionado, generando reportes.");
 		});
 	</script>
+	
 </head>
 <header style="height: auto; width: 100%;">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -150,12 +169,18 @@
 				});
 			</script>
 			<div class="col-xl-12" style="margin-top: 30px; margin-left: 15px;">
-				<input type="button" class="btn btn-success" onclick="alertar()" id="btnAlert" value="MODIFICAR ALERTA">
+				<input type="button" class="btn btn-success" onclick="alertar()" id="btnAlert1" value="MODIFICAR ALERTA REGULAR" style="margin-left: -13%">
 			</div>
+			<div class="col-xl-12" style="margin-top: 30px; margin-left: 15px;">
+				<input type="button" class="btn btn-success" onclick="alertarBateria()" id="btnAlert" value="MODIFICAR ALERTA DE BATERIA" style="margin-left: -16%">
+			</div>
+			<!--<label class="switch" >
+  				<input type="checkbox" id="checkbox1">
+  				<span class="slider round"></span>
+			</label> -->
 		</div>
 	</div>
 </div>
-<div>
 <!-- VeMec - Fin -->	
 </body>
 </html>

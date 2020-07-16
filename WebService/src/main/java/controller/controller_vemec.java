@@ -107,7 +107,6 @@ public class controller_vemec {
     public void data_vemec(infoVemec info) {
         //ToDo Insertar Registros Base de datos
         try {
-
             for (medidaVemec medida : info.getDatos()) {
                 String[] variables = {
                     Integer.toString(info.getIdvemec()),
@@ -139,7 +138,6 @@ public class controller_vemec {
                         + "pressalida,"
                         + "idpaciente) "
                         + "values (?,?,?,?,?,?,?,?,?,?,?,?,(Select idpaciente from vemecs where id=?));";
-
                 this.jdbcTemplate.update(sql, variables);
                 this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + " where id=" + info.getIdvemec());
             }

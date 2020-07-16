@@ -12,7 +12,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-
+import static java.lang.System.out;
 /**
  *
  * @author javaee
@@ -35,6 +35,7 @@ public class vemec_websocket {
     public void onOpen(Session sesion) {
         try {
             vemec_websockets.add(this);
+            out.println("Hello World");
             sesion.getBasicRemote().sendText("Conectado");
         } catch (IOException e) {
         }
