@@ -192,4 +192,26 @@ public class controller_vemec {
         }
         return datos;
     }
+    
+    public List<Object> read_deptos() {
+        List<Object> result = null;
+        try {
+            String sql = "SELECT * from departamentos";
+            result = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public List<Object> read_categorias(int iddepto) {
+        List<Object> result = null;
+        try {
+            String sql = "SELECT * from categorias where iddepartamento = " + Integer.toString(iddepto) + ";";
+            result = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
