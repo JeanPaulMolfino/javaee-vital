@@ -142,7 +142,7 @@ public class JavaEE8Resource {
     }
     
     @GET
-    @Path("/read_alertas")
+    @Path("/read_alertasb")
     public Response read_alertasbateria(
             @QueryParam("id") String id) {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();

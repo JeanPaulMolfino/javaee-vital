@@ -104,11 +104,11 @@ public class controller_vemec {
         return result;
     }
 
-    public void data_vemec(infoVemec info) {
+    public void promedio(infoVemec info) {
         //ToDo Insertar Registros Base de datos
         try {
-            for (medidaVemec medida : info.getDatos()) {
-                String[] variables = {
+                medidaVemec medida = info.getDatos().get(0);
+                /*String[] variables = {
                     Integer.toString(info.getIdvemec()),
                     medida.getFecha().toString(),
                     Integer.toString(medida.getPresionmax()),
@@ -122,8 +122,8 @@ public class controller_vemec {
                     Integer.toString(medida.getPresionentrada()),
                     Integer.toString(medida.getPresionsalida()),
                     Integer.toString(info.getIdvemec())
-                };
-                String sql = "insert into historiales("
+                };*/
+                String sql = "insert into promedios("
                         + "idvemec, "
                         + "timestap, "
                         + "presionmaxima, "
@@ -137,10 +137,22 @@ public class controller_vemec {
                         + "presentrada, "
                         + "pressalida,"
                         + "idpaciente) "
-                        + "values (?,?,?,?,?,?,?,?,?,?,?,?,(Select idpaciente from vemecs where id=?));";
-                this.jdbcTemplate.update(sql, variables);
-                this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + ", alertab="+ (info.getAlertaBateria()? 1 : 0) +" where id=" + info.getIdvemec());
-            }
+                        + "values ("+Integer.toString(info.getIdvemec())+","
+                        + "now(),"
+                        + Integer.toString(medida.getPresionmax())+","
+                        + Integer.toString(medida.getPresionmin()) +","
+                        + Integer.toString(medida.getVolumendegas()) + ","
+                        + Integer.toString(medida.getFrecuenciaaporte())+","
+                        + Integer.toString(medida.getComposicionmezcla()) +","
+                        + Integer.toString(medida.getHumedadaire()) + ","
+                        + Integer.toString(medida.getTemperaturaentrada()) +","
+                        + Integer.toString(medida.getTemperaturasalida()) + ","
+                        + Integer.toString(medida.getPresionentrada()) + ","
+                        + Integer.toString(medida.getPresionsalida()) + ","
+                        + "(Select idpaciente from vemecs where id="
+                        + Integer.toString(info.getIdvemec()) + "));";
+                this.jdbcTemplate.update(sql);
+                //this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + ", alertab="+ (info.getAlertaBateria()? 1 : 0) +" where id=" + info.getIdvemec());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -198,6 +210,17 @@ public class controller_vemec {
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
+    
+    public int getupdatetime() {
+        String sql = "select minutos from updatetime where id=1;";
+        int datos = 0;
+        try {
+            datos = this.jdbcTemplate.queryForInt(sql);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }

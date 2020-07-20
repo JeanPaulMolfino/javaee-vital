@@ -37,8 +37,7 @@ public class controller_slave {
                     Integer.toString(medida.getTemperaturaentrada()),
                     Integer.toString(medida.getTemperaturasalida()),
                     Integer.toString(medida.getPresionentrada()),
-                    Integer.toString(medida.getPresionsalida()),
-                    Integer.toString(info.getIdvemec())
+                    Integer.toString(medida.getPresionsalida())
                 };
                 String sql = "insert into historiales("
                         + "idvemec, "
@@ -55,7 +54,8 @@ public class controller_slave {
                         + "pressalida) "
                         + "values (?,?,?,?,?,?,?,?,?,?,?,?);";
                 this.jdbcTemplate.update(sql, variables);
-                this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + ", alertab="+ (info.getAlertaBateria()? 1 : 0) +" where id=" + info.getIdvemec());
+                this.jdbcTemplate.update("replace into vemecs (id, alerta, alertab) values (" + info.getIdvemec() +", " + (info.getAlerta()? 1 : 0) + ", "+ (info.getAlertaBateria()? 1 : 0) +");");
+                //this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + ", alertab="+ (info.getAlertaBateria()? 1 : 0) +" where id=" + info.getIdvemec());
             }
         } catch (DataAccessException e) {
             e.printStackTrace();
@@ -63,7 +63,7 @@ public class controller_slave {
     }
     
     public List<Object> read_alertas() {
-        String sql = "select v.id as idvemec, concat(p.nombre, ' ', p.apellido) as paciente, v.ubicacion from vemecs as v inner join pacientes as p where v.alerta=1 and v.idpaciente = p.id";
+        String sql = "select v.id as idvemec from vemecs where v.alerta=1";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
@@ -74,7 +74,7 @@ public class controller_slave {
     }
     
     public List<Object> read_alertasBateria() {
-        String sql = "select v.id as idvemec, concat(p.nombre, ' ', p.apellido) as paciente, v.ubicacion from vemecs as v inner join pacientes as p where v.alertab=1 and v.idpaciente = p.id";
+        String sql = "select v.id as idvemec from vemecs where v.alertab=1";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
