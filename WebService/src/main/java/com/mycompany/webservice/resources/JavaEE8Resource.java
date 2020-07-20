@@ -4,6 +4,7 @@ import clases.vemec;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.controller_paciente;
+import controller.controller_slave;
 import controller.controller_vemec;
 import java.util.List;
 import javax.ws.rs.GET;
@@ -109,7 +110,7 @@ public class JavaEE8Resource {
     public Response read_vemecdata_3minutes(
             @QueryParam("id") String id) {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
-        String resultado = convertir.toJson(controller_vemec.getInstance().read_vemecdata_3minutes(id));
+        String resultado = convertir.toJson(controller_slave.getInstance().read_vemecdata_3minutes(id));
         return Response
                 .ok("ping")
                 .entity(resultado)
@@ -121,7 +122,7 @@ public class JavaEE8Resource {
     public Response read_vemecdata(
             @QueryParam("id") String id) {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
-        String resultado = convertir.toJson(controller_vemec.getInstance().read_vemecdata(id));
+        String resultado = convertir.toJson(controller_slave.getInstance().read_vemecdata(id));
         return Response
                 .ok("ping")
                 .entity(resultado)
@@ -133,7 +134,19 @@ public class JavaEE8Resource {
     public Response read_alertas(
             @QueryParam("id") String id) {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
-        String resultado = convertir.toJson(controller_vemec.getInstance().read_alertas());
+        String resultado = convertir.toJson(controller_slave.getInstance().read_alertas());
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
+    @GET
+    @Path("/read_alertas")
+    public Response read_alertasbateria(
+            @QueryParam("id") String id) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_slave.getInstance().read_alertasBateria());
         return Response
                 .ok("ping")
                 .entity(resultado)

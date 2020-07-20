@@ -1,6 +1,6 @@
 package controller;
 
-import Config.conexion;
+import Config.conexion_master;
 import clases.infoVemec;
 import clases.medidaVemec;
 import clases.vemec;
@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 public class controller_vemec {
 
     private static final controller_vemec instance = new controller_vemec();
-    conexion con = new conexion();
+    conexion_master con = new conexion_master();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(con.Conectar());
 
     public static controller_vemec getInstance() {
@@ -192,7 +192,7 @@ public class controller_vemec {
         }
         return datos;
     }
-    
+
     public List<Object> read_alertasBateria() {
         String sql = "select v.id as idvemec, concat(p.nombre, ' ', p.apellido) as paciente, v.ubicacion from vemecs as v inner join pacientes as p where v.alertab=1 and v.idpaciente = p.id";
         List<Object> datos = null;

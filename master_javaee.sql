@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2020 at 05:13 AM
+-- Generation Time: Jul 20, 2020 at 06:09 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -30,6 +30,7 @@ USE `master_javaee`;
 -- Table structure for table `categoria`
 --
 
+DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -42,6 +43,7 @@ CREATE TABLE `categoria` (
 -- Table structure for table `departamentos`
 --
 
+DROP TABLE IF EXISTS `departamentos`;
 CREATE TABLE `departamentos` (
   `id` int(11) NOT NULL,
   `nombre` varchar(15) NOT NULL,
@@ -79,6 +81,7 @@ INSERT INTO `departamentos` (`id`, `nombre`, `codigo`) VALUES
 -- Table structure for table `direcciones`
 --
 
+DROP TABLE IF EXISTS `direcciones`;
 CREATE TABLE `direcciones` (
   `id` int(11) NOT NULL,
   `direccion` varchar(100) NOT NULL,
@@ -92,6 +95,7 @@ CREATE TABLE `direcciones` (
 -- Table structure for table `niveles`
 --
 
+DROP TABLE IF EXISTS `niveles`;
 CREATE TABLE `niveles` (
   `id` int(11) NOT NULL,
   `estado` varchar(10) NOT NULL
@@ -110,6 +114,7 @@ INSERT INTO `niveles` (`id`, `estado`) VALUES
 -- Table structure for table `pacientedirecciones`
 --
 
+DROP TABLE IF EXISTS `pacientedirecciones`;
 CREATE TABLE `pacientedirecciones` (
   `id` int(11) NOT NULL,
   `idpaciente` int(11) NOT NULL,
@@ -123,6 +128,7 @@ CREATE TABLE `pacientedirecciones` (
 -- Table structure for table `pacientes`
 --
 
+DROP TABLE IF EXISTS `pacientes`;
 CREATE TABLE `pacientes` (
   `ci` varchar(8) NOT NULL,
   `nombre` varchar(40) NOT NULL,
@@ -147,9 +153,34 @@ INSERT INTO `pacientes` (`ci`, `nombre`, `apellido`, `edad`, `id`, `nacionalidad
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `promedios`
+--
+
+DROP TABLE IF EXISTS `promedios`;
+CREATE TABLE `promedios` (
+  `id` int(11) NOT NULL,
+  `timestap` datetime NOT NULL,
+  `presionmaxima` int(11) NOT NULL,
+  `presionminima` int(11) NOT NULL,
+  `volgasaporta` int(11) NOT NULL,
+  `frecaporte` int(11) NOT NULL,
+  `compomezcla` int(11) NOT NULL,
+  `humedadaire` int(11) NOT NULL,
+  `tempentrada` int(11) NOT NULL,
+  `tempsalida` int(11) NOT NULL,
+  `presentrada` int(11) NOT NULL,
+  `pressalida` int(11) NOT NULL,
+  `idvemec` int(11) NOT NULL,
+  `idpaciente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `referentes`
 --
 
+DROP TABLE IF EXISTS `referentes`;
 CREATE TABLE `referentes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -164,6 +195,7 @@ CREATE TABLE `referentes` (
 -- Table structure for table `telefonos`
 --
 
+DROP TABLE IF EXISTS `telefonos`;
 CREATE TABLE `telefonos` (
   `id` int(11) NOT NULL,
   `idpaciente` int(11) NOT NULL,
@@ -177,6 +209,7 @@ CREATE TABLE `telefonos` (
 -- Table structure for table `vemecs`
 --
 
+DROP TABLE IF EXISTS `vemecs`;
 CREATE TABLE `vemecs` (
   `id` int(11) NOT NULL,
   `marca` varchar(50) NOT NULL,
@@ -242,6 +275,14 @@ ALTER TABLE `pacientes`
   ADD KEY `pacientesnivel` (`idpeligro`);
 
 --
+-- Indexes for table `promedios`
+--
+ALTER TABLE `promedios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_vemec` (`idvemec`),
+  ADD KEY `fk_paciente` (`idpaciente`);
+
+--
 -- Indexes for table `referentes`
 --
 ALTER TABLE `referentes`
@@ -303,6 +344,12 @@ ALTER TABLE `pacientes`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `promedios`
+--
+ALTER TABLE `promedios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17304;
+
+--
 -- AUTO_INCREMENT for table `referentes`
 --
 ALTER TABLE `referentes`
@@ -349,6 +396,13 @@ ALTER TABLE `pacientedirecciones`
 ALTER TABLE `pacientes`
   ADD CONSTRAINT `categoriapaciente` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `pacientesnivel` FOREIGN KEY (`idpeligro`) REFERENCES `niveles` (`id`);
+
+--
+-- Constraints for table `promedios`
+--
+ALTER TABLE `promedios`
+  ADD CONSTRAINT `fk_paciente` FOREIGN KEY (`idpaciente`) REFERENCES `pacientes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_vemec` FOREIGN KEY (`idvemec`) REFERENCES `vemecs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `referentes`
