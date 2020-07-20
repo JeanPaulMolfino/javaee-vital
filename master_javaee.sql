@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2020 at 06:09 AM
+-- Generation Time: Jul 20, 2020 at 08:53 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -138,17 +138,18 @@ CREATE TABLE `pacientes` (
   `nacionalidad` varchar(11) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
   `idcategoria` int(11) DEFAULT NULL,
-  `idpeligro` int(11) NOT NULL DEFAULT 0
+  `idpeligro` int(11) NOT NULL DEFAULT 0,
+  `sexo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pacientes`
 --
 
-INSERT INTO `pacientes` (`ci`, `nombre`, `apellido`, `edad`, `id`, `nacionalidad`, `email`, `idcategoria`, `idpeligro`) VALUES
-('46107694', 'Jean Paul', 'Molfino', '25', 1, 'uruguayo', '', NULL, 0),
-('47128976', 'Maximiliano', 'Nuñez', '24', 3, 'uruguayo', '', NULL, 0),
-('48659873', 'Manuel', 'Gomez', '33', 4, 'uruguayo', '', NULL, 0);
+INSERT INTO `pacientes` (`ci`, `nombre`, `apellido`, `edad`, `id`, `nacionalidad`, `email`, `idcategoria`, `idpeligro`, `sexo`) VALUES
+('46107694', 'Jean Paul', 'Molfino', '25', 1, 'uruguayo', '', NULL, 0, 0),
+('47128976', 'Maximiliano', 'Nuñez', '24', 3, 'uruguayo', '', NULL, 0, 0),
+('48659873', 'Manuel', 'Gomez', '33', 4, 'uruguayo', '', NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -206,6 +207,25 @@ CREATE TABLE `telefonos` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `updatetime`
+--
+
+DROP TABLE IF EXISTS `updatetime`;
+CREATE TABLE `updatetime` (
+  `id` int(11) NOT NULL,
+  `minutos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `updatetime`
+--
+
+INSERT INTO `updatetime` (`id`, `minutos`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vemecs`
 --
 
@@ -215,17 +235,18 @@ CREATE TABLE `vemecs` (
   `marca` varchar(50) NOT NULL,
   `modelo` varchar(50) NOT NULL,
   `idpaciente` int(11) DEFAULT NULL,
-  `alerta` tinyint(1) NOT NULL DEFAULT 0
+  `alerta` tinyint(1) NOT NULL DEFAULT 0,
+  `alertab` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `vemecs`
 --
 
-INSERT INTO `vemecs` (`id`, `marca`, `modelo`, `idpaciente`, `alerta`) VALUES
-(1, 'Motorola', 'T420', 1, 0),
-(3, 'Alcatel', 'X666', 3, 1),
-(4, 'Samsung', 'G119', 4, 1);
+INSERT INTO `vemecs` (`id`, `marca`, `modelo`, `idpaciente`, `alerta`, `alertab`) VALUES
+(1, 'Motorola', 'T420', 1, 0, 0),
+(3, 'Alcatel', 'X666', 3, 1, 0),
+(4, 'Samsung', 'G119', 4, 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -297,6 +318,12 @@ ALTER TABLE `telefonos`
   ADD KEY `telefonopaciente` (`idpaciente`);
 
 --
+-- Indexes for table `updatetime`
+--
+ALTER TABLE `updatetime`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vemecs`
 --
 ALTER TABLE `vemecs`
@@ -347,7 +374,7 @@ ALTER TABLE `pacientes`
 -- AUTO_INCREMENT for table `promedios`
 --
 ALTER TABLE `promedios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17304;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17813;
 
 --
 -- AUTO_INCREMENT for table `referentes`
@@ -360,6 +387,12 @@ ALTER TABLE `referentes`
 --
 ALTER TABLE `telefonos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `updatetime`
+--
+ALTER TABLE `updatetime`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vemecs`
