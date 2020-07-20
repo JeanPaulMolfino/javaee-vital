@@ -15,16 +15,14 @@ public class infoVemec {
 
     private int idvemec;
     private Boolean alerta;
-    private Boolean alertaBateria;
     private List<medidaVemec> datos;
 
     public infoVemec() {
     }
 
-    public infoVemec(int idvemec, Boolean alerta, Boolean alertaBateria, List<medidaVemec> datos) {
+    public infoVemec(int idvemec, Boolean alerta, List<medidaVemec> datos) {
         this.idvemec = idvemec;
         this.alerta = alerta;
-        this.alertaBateria = alertaBateria;
         this.datos = datos;
     }
 
@@ -50,14 +48,6 @@ public class infoVemec {
 
     public void setDatos(List<medidaVemec> datos) {
         this.datos = datos;
-    }
-
-    public Boolean getAlertaBateria() {
-        return alertaBateria;
-    }
-
-    public void setAlertaBateria(Boolean alertaBateria) {
-        this.alertaBateria = alertaBateria;
     }
 
 }

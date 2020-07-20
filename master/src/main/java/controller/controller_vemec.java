@@ -139,10 +139,10 @@ public class controller_vemec {
                         + "idpaciente) "
                         + "values (?,?,?,?,?,?,?,?,?,?,?,?,(Select idpaciente from vemecs where id=?));";
                 this.jdbcTemplate.update(sql, variables);
-                this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + ", alertab="+ (info.getAlertaBateria()? 1 : 0) +" where id=" + info.getIdvemec());
+                this.jdbcTemplate.update("update vemecs set alerta=" + (info.getAlerta()? 1 : 0) + " where id=" + info.getIdvemec());
             }
         } catch (DataAccessException e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 
@@ -184,17 +184,6 @@ public class controller_vemec {
     
     public List<Object> read_alertas() {
         String sql = "select v.id as idvemec, concat(p.nombre, ' ', p.apellido) as paciente, v.ubicacion from vemecs as v inner join pacientes as p where v.alerta=1 and v.idpaciente = p.id";
-        List<Object> datos = null;
-        try {
-            datos = this.jdbcTemplate.queryForList(sql);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-        return datos;
-    }
-    
-    public List<Object> read_alertasBateria() {
-        String sql = "select v.id as idvemec, concat(p.nombre, ' ', p.apellido) as paciente, v.ubicacion from vemecs as v inner join pacientes as p where v.alertab=1 and v.idpaciente = p.id";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);

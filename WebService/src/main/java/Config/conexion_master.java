@@ -2,8 +2,7 @@ package Config;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-public class conexion {
-
+public class conexion_master{
     public DriverManagerDataSource Conectar(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
