@@ -95,4 +95,16 @@ public class controller_paciente {
         }
         return result;
     }
+    
+    public Boolean create_log(int idPaciente, String categoria, String descripcion) {
+        String[] variables = {Integer.toString(idPaciente), categoria, descripcion};
+        try {
+            String sql = "insert into logs(idpaciente, categoria, descripcion, timestap) values (?,?,?, (select now()))";
+            this.jdbcTemplate.update(sql, variables);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

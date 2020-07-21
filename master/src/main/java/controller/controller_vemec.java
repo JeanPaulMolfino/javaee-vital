@@ -71,6 +71,17 @@ public class controller_vemec {
         return datos;
     }
     
+    public List<Object> read_fullvemec() {
+        String sql = "select v.id, v.marca, v.modelo, concat(p.nombre, ' ', p.apellido, ' ', p.ci) as paciente from vemecs as v left join pacientes as p on v.idpaciente = p.id";
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
+    
     public List<Object> read_vemecbysala(int idsala) {
         String sql = "select v.id, v.marca, v.modelo, concat(p.nombre, ' ', p.apellido, ' ', p.ci) as paciente from vemecs as v inner join pacientes as p on v.idpaciente = p.id where p.idcategoria="+ idsala +";";
         List<Object> datos = null;
@@ -84,6 +95,26 @@ public class controller_vemec {
 
     public Object read_vemec2() {
         String sql = "select v.id, v.marca, v.modelo, v.ubicacion, p.nombre, p.apellido, p.ci from vemecs as v left join pacientes as p on v.idpaciente = p.id";
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
+    public Object read_personaporvemec(int idvemec) {
+        String sql = "select p.id, "
+                + "p.ci, p.nombre, "
+                + "p.apellido, "
+                + "p.edad, "
+                + "p.nacionalidad, "
+                + "p.email, "
+                + "c.nombre as categoria, "
+                + "n.estado, "
+                + "p.sexo "
+                + "from vemecs as v inner join pacientes as p inner join niveles as n inner join categorias as c on p.idpeligro = n.id and p.id = v.idpaciente and p.idcategoria = c.id "
+                + "where v.id =" + idvemec;
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
@@ -224,5 +255,36 @@ public class controller_vemec {
             e.printStackTrace();
         }
         return result;
+    }
+    
+    public List<Object> read_pacientessinvemecs() {
+        List<Object> result = null;
+        try {
+            String sql = "SELECT p.id, concat(p.nombre, ' ', p.apellido) as nombre, p.ci from pacientes as p left join vemecs as v on p.id = v.idpaciente where v.id IS NULL";
+            result = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public void update_asignarvemec(int idpaciente, int idvemec) {
+        try {
+            String[] variables = {Integer.toString(idpaciente), Integer.toString(idvemec)};
+            String sql = "update vemecs set idpaciente=? where id=?";
+            this.jdbcTemplate.update(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void update_riesgopaciente(int idpaciente, String nivel) {
+        try {
+            String[] variables = {nivel, Integer.toString(idpaciente)};
+            String sql = "update pacientes set idpeligro=(Select id from niveles where estado=?) where id=?";
+            this.jdbcTemplate.update(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

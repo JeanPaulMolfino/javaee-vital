@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import controller.controller_paciente;
 import controller.controller_vemec;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -178,5 +179,79 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-
+    
+    @GET
+    @Path("/personaporvemec")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response personaporvemec(
+        @QueryParam("id") int idvemec) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_personaporvemec(idvemec));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
+    @GET
+    @Path("/read_pacientessinvemecs")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response pacientessinvemecs() {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_pacientessinvemecs());
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
+    @GET
+    @Path("/update_asignarvemec")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response personaporvemec(
+        @QueryParam("idpaciente") int idpaciente,
+        @QueryParam("idvemec") int idvemec) {
+        controller_vemec.getInstance().update_asignarvemec(idpaciente, idvemec);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
+    @GET
+    @Path("/listfullallvemecs")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listfullallvemecs() {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_fullvemec());
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
+    @GET
+    @Path("/updatenivelriesgo")
+    public Response updatenivelriesgo(
+        @QueryParam("idpaciente") int idpaciente,
+        @QueryParam("nivel") String nivel) {
+        controller_vemec.getInstance().update_riesgopaciente(idpaciente, nivel);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
+    @GET
+    @Path("/createlog")
+    public Response createLog(
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("categoria") String categoria,
+            @QueryParam("descripcion") String descripcion) {
+        controller_paciente.getInstance().create_log(idpaciente, categoria, descripcion);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
 }
