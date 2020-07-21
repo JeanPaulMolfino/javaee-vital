@@ -8,7 +8,7 @@ class PDF extends FPDF
 function Header()
 {
     // Logo
-    //$this->Image('logo.png',10,6,30);
+    $this->Image('logoutec.png',10,6,30);
     // Arial bold 15
     $this->SetFont('Arial','B',15);
     // Move to the right
@@ -44,7 +44,10 @@ function Footer()
 }
 
 //Aca consigo los datos usando el json que usa jean y ni puta idea de como se maneja xd
+$idVeMec = ($_GET['variable2']);
+$data = json_decode( file_get_contents("http://localhost:8080/WebService/resources/javaee8/read_vemecdata?id=$idVeMec"), true);
 
+    
 // Creación del objeto de la clase heredada
 $pdf = new PDF();
 $pdf->AliasNbPages();
@@ -52,11 +55,19 @@ $pdf->AddPage();
 $pdf->SetFont('Arial','',12);
 
 //aca recorremos los datos y generamos las tablas
-//while($row = $resultado->fetch_assoc()){
-//  $pdf->Cell(90, 10, $row[nombre_producto], 1, 0, 'C', 0);
-//  $pdf->Cell(30, 10, $row[precio_producto], 1, 0, 'C', 0);
-//  $pdf->Cell(30, 10, $row[stock_producto], 1, 1, 'C', 0);
-//}
+while($row = $data->fetch_assoc()){
+  $pdf->Cell(90, 10, $row['timestap'], 1, 0, 'C', 0);
+  $pdf->Cell(30, 10, $row['presionmaxima'], 1, 0, 'C', 0);
+  $pdf->Cell(30, 10, $row['presionminima'], 1, 1, 'C', 0);
+  $pdf->Cell(30, 10, $row['volgasaporta'], 1, 0, 'C', 0);
+  $pdf->Cell(30, 10, $row['frecaporte'], 1, 1, 'C', 0);
+  $pdf->Cell(30, 10, $row['compomezcla'], 1, 0, 'C', 0);
+  $pdf->Cell(30, 10, $row['humedadaire'], 1, 1, 'C', 0);
+  $pdf->Cell(30, 10, $row['tempentrada'], 1, 0, 'C', 0);
+  $pdf->Cell(30, 10, $row['tempsalida'], 1, 1, 'C', 0);
+  $pdf->Cell(30, 10, $row['presentrada'], 1, 0, 'C', 0);
+  $pdf->Cell(30, 10, $row['pressalida'], 1, 1, 'C', 0);
+}
 
 $pdf->Output();
 }
