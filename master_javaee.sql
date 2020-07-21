@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2020 at 08:53 AM
+-- Generation Time: Jul 21, 2020 at 09:56 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -27,15 +27,22 @@ USE `master_javaee`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria`
+-- Table structure for table `categorias`
 --
 
-DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE `categoria` (
+DROP TABLE IF EXISTS `categorias`;
+CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `iddepartamento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nombre`, `iddepartamento`) VALUES
+(1, 'urbana 15', 1);
 
 -- --------------------------------------------------------
 
@@ -88,6 +95,28 @@ CREATE TABLE `direcciones` (
   `localidad` varchar(5) NOT NULL,
   `iddepartamento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+DROP TABLE IF EXISTS `logs`;
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `idpaciente` int(11) NOT NULL,
+  `categoria` varchar(50) NOT NULL,
+  `descripcion` varchar(1000) NOT NULL,
+  `timestap` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `idpaciente`, `categoria`, `descripcion`, `timestap`) VALUES
+(2, 1, 'Medicamento', 'Antibioticos', '2020-07-21 15:36:24');
 
 -- --------------------------------------------------------
 
@@ -147,9 +176,10 @@ CREATE TABLE `pacientes` (
 --
 
 INSERT INTO `pacientes` (`ci`, `nombre`, `apellido`, `edad`, `id`, `nacionalidad`, `email`, `idcategoria`, `idpeligro`, `sexo`) VALUES
-('46107694', 'Jean Paul', 'Molfino', '25', 1, 'uruguayo', '', NULL, 0, 0),
+('46107694', 'Jean Paul', 'Molfino', '25', 1, 'uruguayo', '', 1, 0, 0),
 ('47128976', 'Maximiliano', 'Nuñez', '24', 3, 'uruguayo', '', NULL, 0, 0),
-('48659873', 'Manuel', 'Gomez', '33', 4, 'uruguayo', '', NULL, 0, 0);
+('48659873', 'Manuel', 'Gomez', '33', 4, 'uruguayo', '', NULL, 0, 0),
+('49999999', 'Test', 'Sin Vemec', '20', 5, 'Uruguayo', NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -246,16 +276,17 @@ CREATE TABLE `vemecs` (
 INSERT INTO `vemecs` (`id`, `marca`, `modelo`, `idpaciente`, `alerta`, `alertab`) VALUES
 (1, 'Motorola', 'T420', 1, 0, 0),
 (3, 'Alcatel', 'X666', 3, 1, 0),
-(4, 'Samsung', 'G119', 4, 1, 0);
+(4, 'Samsung', 'G119', 4, 1, 0),
+(5, 'Alcatel', 'SinPaciente', NULL, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `categoria`
+-- Indexes for table `categorias`
 --
-ALTER TABLE `categoria`
+ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`),
   ADD KEY `categoriadepartamento` (`iddepartamento`);
 
@@ -271,6 +302,13 @@ ALTER TABLE `departamentos`
 ALTER TABLE `direcciones`
   ADD PRIMARY KEY (`id`),
   ADD KEY `departamentodireccion` (`iddepartamento`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `logpaciente` (`idpaciente`);
 
 --
 -- Indexes for table `niveles`
@@ -335,10 +373,10 @@ ALTER TABLE `vemecs`
 --
 
 --
--- AUTO_INCREMENT for table `categoria`
+-- AUTO_INCREMENT for table `categorias`
 --
-ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `departamentos`
@@ -351,6 +389,12 @@ ALTER TABLE `departamentos`
 --
 ALTER TABLE `direcciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `niveles`
@@ -368,7 +412,7 @@ ALTER TABLE `pacientedirecciones`
 -- AUTO_INCREMENT for table `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `promedios`
@@ -398,16 +442,16 @@ ALTER TABLE `updatetime`
 -- AUTO_INCREMENT for table `vemecs`
 --
 ALTER TABLE `vemecs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `categoria`
+-- Constraints for table `categorias`
 --
-ALTER TABLE `categoria`
+ALTER TABLE `categorias`
   ADD CONSTRAINT `categoriadepartamento` FOREIGN KEY (`iddepartamento`) REFERENCES `departamentos` (`id`);
 
 --
@@ -415,6 +459,12 @@ ALTER TABLE `categoria`
 --
 ALTER TABLE `direcciones`
   ADD CONSTRAINT `departamentodireccion` FOREIGN KEY (`iddepartamento`) REFERENCES `departamentos` (`id`);
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `logpaciente` FOREIGN KEY (`idpaciente`) REFERENCES `pacientes` (`id`);
 
 --
 -- Constraints for table `pacientedirecciones`
@@ -427,7 +477,7 @@ ALTER TABLE `pacientedirecciones`
 -- Constraints for table `pacientes`
 --
 ALTER TABLE `pacientes`
-  ADD CONSTRAINT `categoriapaciente` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `categoriapaciente` FOREIGN KEY (`idcategoria`) REFERENCES `categorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `pacientesnivel` FOREIGN KEY (`idpeligro`) REFERENCES `niveles` (`id`);
 
 --
