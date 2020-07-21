@@ -1,4 +1,4 @@
-function demoFromHTML() {
+function demoFromHTML(){
     var pdf = new jsPDF('p', 'pt', 'letter');
     source = $('#content')[0];
     specialElementHandlers = {

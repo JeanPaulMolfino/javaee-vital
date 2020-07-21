@@ -23,6 +23,7 @@
 		var temperaturasalida= 12;
 		var presionentrada= 20;
 		var presionsalida= 20;
+        var bateria = 100;
 
 		function IniciarConexion(){
 			ws= new WebSocket("ws://localhost:8080/WebService/vemec");
@@ -75,7 +76,8 @@
 			counter++;
 			var arreglo = new Object();
 			//arreglo.id = 1;
-
+            arreglo.bateria = bateria;
+            
 			if(alerta == true){
 				arreglo.presionmax = 1;
 				arreglo.presionmin = 1;
@@ -83,7 +85,16 @@
 				arreglo.presionmax = presionmax + getRandomArbitrary(-2, 2);
 				arreglo.presionmin = presionmin + getRandomArbitrary(-2, 2);
 			}
-			
+            
+			if(alertaBateria == true){
+				arreglo.bateria = 15;
+			} else {
+				if(arreglo.bateria < 17){
+                    arreglo.bateria = 100;
+                }
+                arreglo.bateria = arreglo.bateria - 1;
+				bateria = arreglo.bateria;
+			}
 			
 			arreglo.volumendegas = volumendegas + getRandomArbitrary(-2, 2);
 			arreglo.frecuenciaaporte = frecuenciaaporte + getRandomArbitrary(-2, 2);
@@ -94,7 +105,6 @@
 			arreglo.presionentrada = presionentrada + getRandomArbitrary(-2, 2);
 			arreglo.presionsalida = presionsalida + getRandomArbitrary(-2, 2);
 			arreglo.fecha = moment().format('YYYY-MM-DD HH:mm:ss');
-
 			matriz.push(arreglo);
 			if(counter == 5 || alerta == true){
 
