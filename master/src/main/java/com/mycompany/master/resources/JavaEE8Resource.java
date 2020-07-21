@@ -50,6 +50,20 @@ public class JavaEE8Resource {
     }
     
     @GET
+    @Path("/listallvemecsbysala")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listallvemecs(
+            @QueryParam("idsala") int idsala
+    ) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_vemec.getInstance().read_vemecbysala(idsala));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
+    @GET
     @Path("/vemecspaciente")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listvemecsynombre() {
