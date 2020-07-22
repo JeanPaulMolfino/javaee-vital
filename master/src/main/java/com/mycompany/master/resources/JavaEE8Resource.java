@@ -79,9 +79,8 @@ public class JavaEE8Resource {
     @Path("/createvemec")
     public Response createVemec(
             @QueryParam("marca") String marca,
-            @QueryParam("modelo") String modelo,
-            @QueryParam("ubicacion") String ubicacion) {
-        controller_vemec.getInstance().create_vemec(marca, modelo, ubicacion);
+            @QueryParam("modelo") String modelo) {
+        controller_vemec.getInstance().create_vemec(marca, modelo);
         return Response
                 .ok("ping")
                 .entity(null)
