@@ -27,10 +27,10 @@ public class controller_paciente {
     private controller_paciente() {
     }
 
-    public Boolean create_pacientes(String ci, String nombre, String apellido, String edad) {
-        String[] variables = {ci, nombre, apellido, edad};
+    public Boolean create_pacientes(String ci, String nombre, String apellido, String edad, String nacionalidad, String email, Boolean sexo) {
+        String[] variables = {ci, nombre, apellido, edad, nacionalidad, email, (sexo? "1" : "0")};
         try {
-            String sql = "insert into pacientes(ci, nombre, apellido, edad) values (?,?,?,?)";
+            String sql = "insert into pacientes(ci, nombre, apellido, edad, nacionalidad, email, sexo) values (?,?,?,?,?,?,?)";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {

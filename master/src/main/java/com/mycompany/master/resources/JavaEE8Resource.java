@@ -118,8 +118,11 @@ public class JavaEE8Resource {
             @QueryParam("ci") String ci,
             @QueryParam("nombre") String nombre,
             @QueryParam("apellido") String apellido,
-            @QueryParam("edad") String edad) {
-        controller_paciente.getInstance().create_pacientes(ci, nombre, apellido, edad);
+            @QueryParam("edad") String edad,
+            @QueryParam("nacionalidad") String nacionalidad,
+            @QueryParam("email") String email,
+            @QueryParam("sexo") Boolean sexo) {
+        controller_paciente.getInstance().create_pacientes(ci, nombre, apellido, edad, nacionalidad, email, sexo);
         return Response
                 .ok("ping")
                 .entity(null)
