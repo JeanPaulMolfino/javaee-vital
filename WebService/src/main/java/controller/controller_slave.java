@@ -63,7 +63,7 @@ public class controller_slave {
     }
     
     public List<Object> read_alertas() {
-        String sql = "select v.id as idvemec from vemecs where v.alerta=1";
+        String sql = "select v.id as idvemec from vemecs as v where v.alerta=1";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
@@ -74,7 +74,7 @@ public class controller_slave {
     }
     
     public List<Object> read_alertasBateria() {
-        String sql = "select v.id as idvemec from vemecs where v.alertab=1";
+        String sql = "select v.id as idvemec from vemecs as v where v.alertab=1";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
