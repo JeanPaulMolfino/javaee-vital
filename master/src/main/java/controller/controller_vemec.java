@@ -72,7 +72,7 @@ public class controller_vemec {
     }
     
     public List<Object> read_fullvemec() {
-        String sql = "select v.id, v.marca, v.modelo, concat(p.nombre, ' ', p.apellido, ' ', p.ci) as paciente from vemecs as v left join pacientes as p on v.idpaciente = p.id";
+        String sql = "select v.id, v.marca, concat(p.nombre, ' ', p.apellido, ' ', p.ci), v.modelo as paciente from vemecs as v left join pacientes as p on v.idpaciente = p.id";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
