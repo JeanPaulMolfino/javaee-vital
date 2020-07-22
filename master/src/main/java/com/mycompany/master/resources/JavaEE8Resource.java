@@ -14,18 +14,18 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author 
+ * @author
  */
 @Path("master_javaee8")
 public class JavaEE8Resource {
-    
+
     @GET
-    public Response ping(){
+    public Response ping() {
         return Response
                 .ok("ping")
                 .build();
     }
-    
+
     /*@GET
     @Path("/ping")
     @Produces(MediaType.APPLICATION_JSON)
@@ -37,7 +37,6 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }*/
-    
     @GET
     @Path("/listallvemecs")
     @Produces(MediaType.APPLICATION_JSON)
@@ -49,7 +48,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/listallvemecsbysala")
     @Produces(MediaType.APPLICATION_JSON)
@@ -63,7 +62,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/vemecspaciente")
     @Produces(MediaType.APPLICATION_JSON)
@@ -128,7 +127,7 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/read_vemecdata_3minutes")
     @Produces(MediaType.APPLICATION_JSON)
@@ -141,7 +140,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/read_vemecdata")
     @Produces(MediaType.APPLICATION_JSON)
@@ -154,7 +153,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/read_deptos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -166,7 +165,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/read_categoriapordepto")
     @Produces(MediaType.APPLICATION_JSON)
@@ -179,12 +178,12 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/personaporvemec")
     @Produces(MediaType.APPLICATION_JSON)
     public Response personaporvemec(
-        @QueryParam("id") int idvemec) {
+            @QueryParam("id") int idvemec) {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
         String resultado = convertir.toJson(controller_vemec.getInstance().read_personaporvemec(idvemec));
         return Response
@@ -192,7 +191,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/read_pacientessinvemecs")
     @Produces(MediaType.APPLICATION_JSON)
@@ -204,20 +203,20 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/update_asignarvemec")
     @Produces(MediaType.APPLICATION_JSON)
     public Response personaporvemec(
-        @QueryParam("idpaciente") int idpaciente,
-        @QueryParam("idvemec") int idvemec) {
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("idvemec") int idvemec) {
         controller_vemec.getInstance().update_asignarvemec(idpaciente, idvemec);
         return Response
                 .ok("ping")
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/listfullallvemecs")
     @Produces(MediaType.APPLICATION_JSON)
@@ -229,19 +228,19 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/updatenivelriesgo")
     public Response updatenivelriesgo(
-        @QueryParam("idpaciente") int idpaciente,
-        @QueryParam("nivel") String nivel) {
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("nivel") String nivel) {
         controller_vemec.getInstance().update_riesgopaciente(idpaciente, nivel);
         return Response
                 .ok("ping")
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/createlog")
     public Response createLog(
@@ -252,6 +251,19 @@ public class JavaEE8Resource {
         return Response
                 .ok("ping")
                 .entity(null)
+                .build();
+    }
+
+    @GET
+    @Path("/list_logbypaciente")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listlogbypaciente(
+            @QueryParam("idpaciente") int idpaciente) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_paciente.getInstance().list_logsbypaciente(idpaciente));
+        return Response
+                .ok("ping")
+                .entity(resultado)
                 .build();
     }
 }

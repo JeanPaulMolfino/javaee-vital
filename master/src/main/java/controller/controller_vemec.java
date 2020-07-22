@@ -83,7 +83,7 @@ public class controller_vemec {
     }
     
     public List<Object> read_vemecbysala(int idsala) {
-        String sql = "select v.id, v.marca, v.modelo, concat(p.nombre, ' ', p.apellido, ' ', p.ci) as paciente from vemecs as v inner join pacientes as p on v.idpaciente = p.id where p.idcategoria="+ idsala +";";
+        String sql = "select v.id, v.marca, v.modelo, p.id as idpaciente, concat(p.nombre, ' ', p.apellido, ' ', p.ci) as paciente from vemecs as v inner join pacientes as p on v.idpaciente = p.id where p.idcategoria="+ idsala +";";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);

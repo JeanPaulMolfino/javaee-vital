@@ -107,4 +107,15 @@ public class controller_paciente {
         }
         return false;
     }
+    
+    public List<Object> list_logsbypaciente(int idpaciente) {
+        String sql = "select * from logs where idpaciente="+Integer.toString(idpaciente);
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
 }
