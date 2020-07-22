@@ -27,7 +27,7 @@ public class controller_vemec {
     public Boolean create_vemec(String marca, String modelo) {
         String[] variables = {marca, modelo};
         try {
-            String sql = "insert into vemecs(marca, modelo, ubicacion) values (?,?)";
+            String sql = "insert into vemecs(marca, modelo) values (?,?)";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
