@@ -93,9 +93,8 @@ public class JavaEE8Resource {
     public Response updateVemec(
             @QueryParam("idVemec") String idVemec,
             @QueryParam("marca") String marca,
-            @QueryParam("modelo") String modelo,
-            @QueryParam("ubicacion") String ubicacion) {
-        controller_vemec.getInstance().update_vemec(idVemec, marca, modelo, ubicacion);
+            @QueryParam("modelo") String modelo) {
+        controller_vemec.getInstance().update_vemec(idVemec, marca, modelo);
         return Response
                 .ok("ping")
                 .entity(null)

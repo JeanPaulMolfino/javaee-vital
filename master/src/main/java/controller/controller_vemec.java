@@ -36,10 +36,10 @@ public class controller_vemec {
         return false;
     }
 
-    public Boolean update_vemec(String idVemec, String marca, String modelo, String ubicacion) {
-        String[] variables = {marca, modelo, ubicacion, idVemec};
+    public Boolean update_vemec(String idVemec, String marca, String modelo) {
+        String[] variables = {marca, modelo, idVemec};
         try {
-            String sql = "update vemecs set marca=?, modelo=?, ubicacion=? where id = ?";
+            String sql = "update vemecs set marca=?, modelo=? where id = ?";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
