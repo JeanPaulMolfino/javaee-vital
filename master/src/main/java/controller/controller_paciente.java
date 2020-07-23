@@ -28,7 +28,7 @@ public class controller_paciente {
     }
 
     public Boolean create_pacientes(String ci, String nombre, String apellido, String edad, String nacionalidad, String email, Boolean sexo) {
-        String[] variables = {ci, nombre, apellido, edad, nacionalidad, email, (sexo? "1" : "0")};
+        String[] variables = {ci, nombre, apellido, edad, nacionalidad, email, (sexo? "true" : "false")};
         try {
             String sql = "insert into pacientes(ci, nombre, apellido, edad, nacionalidad, email, sexo) values (?,?,?,?,?,?,?)";
             this.jdbcTemplate.update(sql, variables);
