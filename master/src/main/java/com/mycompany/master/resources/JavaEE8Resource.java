@@ -128,7 +128,7 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/update_paciente")
     public Response createPaciente(
@@ -286,7 +286,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/create_referente")
     public Response create_Referente(
@@ -300,6 +300,7 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
+
     @GET
     @Path("/update_referente")
     public Response update_referente(
@@ -313,7 +314,7 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/delete_referente")
     public Response delete_referente(
@@ -325,7 +326,7 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/list_referentes")
     @Produces(MediaType.APPLICATION_JSON)
@@ -337,7 +338,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/update_removevemec")
     public Response update_removevemec(
@@ -348,5 +349,44 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
+
+    @GET
+    @Path("/update_direccion")
+    public Response update_direccion(
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("iddepartamento") int iddepartamento,
+            @QueryParam("localidad") String localidad, 
+            @QueryParam("direccion") String direccion) {
+        controller_paciente.getInstance().update_direccion(idpaciente, iddepartamento, localidad, direccion);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
     
+    @GET
+    @Path("/create_direccion")
+    public Response create_direccion(
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("iddepartamento") int iddepartamento,
+            @QueryParam("localidad") String localidad, 
+            @QueryParam("direccion") String direccion) {
+        controller_paciente.getInstance().create_direccion(idpaciente, iddepartamento, localidad, direccion);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
+    @GET
+    @Path("/list_direccion")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response list_direccion(@QueryParam("idpaciente") int idpaciente) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_paciente.getInstance().list_direccion(idpaciente));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
 }

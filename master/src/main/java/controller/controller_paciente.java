@@ -163,4 +163,37 @@ public class controller_paciente {
         }
         return false;
     }
+    
+    public Boolean update_direccion(int idpaciente, int iddepartamento, String localidad, String direccion) {
+        String[] variables = {Integer.toString(iddepartamento), localidad, direccion, Integer.toString(idpaciente)};
+        try {
+            String sql = "update direcciones set iddepartamento=?, localidad=?, direccion=? where idpaciente=?";
+            this.jdbcTemplate.update(sql, variables);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public void create_direccion(int idpaciente, int iddepartamento, String localidad, String direccion) {
+        String[] variables = {Integer.toString(iddepartamento), localidad, direccion, Integer.toString(idpaciente)};
+        try {
+            String sql = "insert into direcciones(iddepartamento, localidad, direccion, idpaciente) values (?,?,?,?)";
+            this.jdbcTemplate.update(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public List<Object> list_direccion(int idpaciente) {
+        String sql = "select d.id, d.idpaciente, dep.nombre, d.localidad, d.direccion from direcciones as d inner join departamentos as dep on d.iddepartamento = dep.id where d.idpaciente="+Integer.toString(idpaciente);
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
 }
