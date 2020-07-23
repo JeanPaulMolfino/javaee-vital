@@ -128,6 +128,24 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
+    
+    @GET
+    @Path("/update_paciente")
+    public Response createPaciente(
+            @QueryParam("idpaciente") String idpaciente,
+            @QueryParam("ci") String ci,
+            @QueryParam("nombre") String nombre,
+            @QueryParam("apellido") String apellido,
+            @QueryParam("edad") String edad,
+            @QueryParam("nacionalidad") String nacionalidad,
+            @QueryParam("email") String email,
+            @QueryParam("sexo") Boolean sexo) {
+        controller_paciente.getInstance().update_pacientes(ci, nombre, apellido, edad, nacionalidad, email, sexo, idpaciente);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
 
     @GET
     @Path("/read_vemecdata_3minutes")
@@ -262,6 +280,57 @@ public class JavaEE8Resource {
             @QueryParam("idpaciente") int idpaciente) {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
         String resultado = convertir.toJson(controller_paciente.getInstance().list_logsbypaciente(idpaciente));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+    
+    @GET
+    @Path("/create_referente")
+    public Response create_Referente(
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("nombre") String nombre,
+            @QueryParam("telefono") String telefono,
+            @QueryParam("filial") String filial) {
+        controller_paciente.getInstance().create_referente(idpaciente, nombre, telefono, filial);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    @GET
+    @Path("/update_referente")
+    public Response update_referente(
+            @QueryParam("idreferente") int idreferente,
+            @QueryParam("nombre") String nombre,
+            @QueryParam("telefono") String telefono,
+            @QueryParam("filial") String filial) {
+        controller_paciente.getInstance().update_referente(idreferente, nombre, telefono, filial);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
+    @GET
+    @Path("/delete_referente")
+    public Response delete_referente(
+            @QueryParam("idreferente") int idreferente
+    ) {
+        controller_paciente.getInstance().delete_referente(idreferente);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
+    @GET
+    @Path("/list_referentes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response list_referentes(@QueryParam("idpaciente") int idpaciente) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_paciente.getInstance().list_referentes(idpaciente));
         return Response
                 .ok("ping")
                 .entity(resultado)

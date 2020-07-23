@@ -50,10 +50,10 @@ public class controller_paciente {
         return datos;
     }
 
-    public Boolean update_pacientes(String ci, String nombre, String apellido, String edad, String id) {
-        String[] variables = {ci, nombre, apellido, edad, id};
+    public Boolean update_pacientes(String ci, String nombre, String apellido, String edad, String nacionalidad, String email, Boolean sexo, String idpaciente) {
+        String[] variables = {ci, nombre, apellido, edad, nacionalidad, email, (sexo? "1" : "0"), idpaciente};
         try {
-            String sql = "update into set ci=?, nombre=?, apellido=?, edad=? where id=?";
+            String sql = "update into set ci=?, nombre=?, apellido=?, edad=?, nacionalidad=?, email=?, sexo=? where id=?";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
