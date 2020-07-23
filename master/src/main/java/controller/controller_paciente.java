@@ -51,9 +51,9 @@ public class controller_paciente {
     }
 
     public Boolean update_pacientes(String ci, String nombre, String apellido, String edad, String nacionalidad, String email, Boolean sexo, String idpaciente) {
-        String[] variables = {ci, nombre, apellido, edad, nacionalidad, email, (sexo? "1" : "0"), idpaciente};
+        String[] variables = {idpaciente};
         try {
-            String sql = "update into set ci=?, nombre=?, apellido=?, edad=?, nacionalidad=?, email=?, sexo=? where id=?";
+            String sql = "update pacientes set ci='"+ci+"', nombre='"+ nombre +"', apellido='"+apellido+"', edad='"+edad+"', nacionalidad='"+nacionalidad+"', email='"+email+"', sexo='"+ (sexo? "1" : "0") +"' where id=?";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
@@ -143,7 +143,7 @@ public class controller_paciente {
     public Boolean update_referente(int idreferente, String nombre, String telefono, String filial) {
         String[] variables = {nombre, telefono, filial, Integer.toString(idreferente)};
         try {
-            String sql = "update into set nombre=?, telefono=?, filial=? where id=?";
+            String sql = "update referentes set nombre=?, telefono=?, filial=? where id=?";
             this.jdbcTemplate.update(sql, variables);
             return true;
         } catch (DataAccessException e) {
