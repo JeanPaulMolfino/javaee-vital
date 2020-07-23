@@ -28,7 +28,7 @@ public class controller_paciente {
     }
 
     public Boolean create_pacientes(String ci, String nombre, String apellido, String edad, String nacionalidad, String email, Boolean sexo) {
-        String[] variables = {ci, nombre, apellido, edad, nacionalidad, email, (sexo? "true" : "false")};
+        String[] variables = {ci, nombre, apellido, edad, nacionalidad, email, (sexo? "1" : "0")};
         try {
             String sql = "insert into pacientes(ci, nombre, apellido, edad, nacionalidad, email, sexo) values (?,?,?,?,?,?,?)";
             this.jdbcTemplate.update(sql, variables);
@@ -117,5 +117,50 @@ public class controller_paciente {
             e.printStackTrace();
         }
         return datos;
+    }
+    
+    public void create_referente(int idpaciente, String nombre, String telefono, String filial) {
+        String[] variables = {nombre, telefono, filial, Integer.toString(idpaciente)};
+        try {
+            String sql = "insert into referentes(nombre, telefono, filial, idpaciente) values (?,?,?,?)";
+            this.jdbcTemplate.update(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public List<Object> list_referentes(int idpaciente) {
+        String sql = "select * from referentes where idpaciente="+Integer.toString(idpaciente);
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
+    
+    public Boolean update_referente(int idreferente, String nombre, String telefono, String filial) {
+        String[] variables = {nombre, telefono, filial, Integer.toString(idreferente)};
+        try {
+            String sql = "update into set nombre=?, telefono=?, filial=? where id=?";
+            this.jdbcTemplate.update(sql, variables);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public Boolean delete_referente(int idreferente) {
+        String[] variables = {Integer.toString(idreferente)};
+        try {
+            String sql = "delete from referentes where id = ?";
+            this.jdbcTemplate.update(sql, variables);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
