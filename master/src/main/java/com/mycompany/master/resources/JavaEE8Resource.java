@@ -228,8 +228,9 @@ public class JavaEE8Resource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response personaporvemec(
             @QueryParam("idpaciente") int idpaciente,
-            @QueryParam("idvemec") int idvemec) {
-        controller_vemec.getInstance().update_asignarvemec(idpaciente, idvemec);
+            @QueryParam("idvemec") int idvemec,
+            @QueryParam("idcategoria") int idcategoria) {
+        controller_vemec.getInstance().update_asignarvemec(idpaciente, idvemec, idcategoria);
         return Response
                 .ok("ping")
                 .entity(null)

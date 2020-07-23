@@ -268,11 +268,15 @@ public class controller_vemec {
         return result;
     }
     
-    public void update_asignarvemec(int idpaciente, int idvemec) {
+    public void update_asignarvemec(int idpaciente, int idvemec, int idcategoria) {
         try {
             String[] variables = {Integer.toString(idpaciente), Integer.toString(idvemec)};
             String sql = "update vemecs set idpaciente=? where id=?";
             this.jdbcTemplate.update(sql, variables);
+            
+            String[] variables2={Integer.toString(idcategoria), Integer.toString(idpaciente)};
+            sql = "update pacientes set idcategoria=? where id=?";
+            this.jdbcTemplate.update(sql, variables2);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
