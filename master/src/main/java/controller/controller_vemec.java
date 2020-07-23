@@ -287,4 +287,14 @@ public class controller_vemec {
             e.printStackTrace();
         }
     }
+    
+    public void update_removevemec(int idvemec) {
+        try {
+            String[] variables = {Integer.toString(idvemec)};
+            String sql = "update vemecs set idpaciente=NULL where id=?";
+            this.jdbcTemplate.update(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
 }

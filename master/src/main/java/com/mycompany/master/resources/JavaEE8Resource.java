@@ -336,4 +336,16 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
+    
+    @GET
+    @Path("/update_removevemec")
+    public Response update_removevemec(
+            @QueryParam("idvemec") int idvemec) {
+        controller_vemec.getInstance().update_removevemec(idvemec);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
 }
