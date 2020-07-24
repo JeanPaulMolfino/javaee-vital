@@ -344,7 +344,7 @@ public class JavaEE8Resource {
     public Response update_direccion(
             @QueryParam("idpaciente") int idpaciente,
             @QueryParam("iddepartamento") int iddepartamento,
-            @QueryParam("localidad") String localidad, 
+            @QueryParam("localidad") String localidad,
             @QueryParam("direccion") String direccion) {
         controller_paciente.getInstance().update_direccion(idpaciente, iddepartamento, localidad, direccion);
         return Response
@@ -352,13 +352,13 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/create_direccion")
     public Response create_direccion(
             @QueryParam("idpaciente") int idpaciente,
             @QueryParam("iddepartamento") int iddepartamento,
-            @QueryParam("localidad") String localidad, 
+            @QueryParam("localidad") String localidad,
             @QueryParam("direccion") String direccion) {
         controller_paciente.getInstance().create_direccion(idpaciente, iddepartamento, localidad, direccion);
         return Response
@@ -366,13 +366,13 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/create_direccion2")
     public Response create_direccion(
             @QueryParam("cipaciente") String cipaciente,
             @QueryParam("iddepartamento") int iddepartamento,
-            @QueryParam("localidad") String localidad, 
+            @QueryParam("localidad") String localidad,
             @QueryParam("direccion") String direccion) {
         controller_paciente.getInstance().create_direccion2(cipaciente, iddepartamento, localidad, direccion);
         return Response
@@ -380,7 +380,7 @@ public class JavaEE8Resource {
                 .entity(null)
                 .build();
     }
-    
+
     @GET
     @Path("/list_direccion")
     @Produces(MediaType.APPLICATION_JSON)
@@ -392,7 +392,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/list_pacientescategoria")
     @Produces(MediaType.APPLICATION_JSON)
@@ -404,7 +404,7 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/list_pacientes")
     @Produces(MediaType.APPLICATION_JSON)
@@ -416,13 +416,27 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
-    
+
     @GET
     @Path("/read_paciente")
     @Produces(MediaType.APPLICATION_JSON)
     public Response read_paciente(@QueryParam("idpaciente") int idpaciente) {
         Gson convertir = new GsonBuilder().setPrettyPrinting().create();
         String resultado = convertir.toJson(controller_paciente.getInstance().read_paciente(idpaciente));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
+
+    @GET
+    @Path("/read_promedios")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response read_promedios(
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("fecha") String fecha) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_paciente.getInstance().read_promedios(idpaciente, fecha));
         return Response
                 .ok("ping")
                 .entity(resultado)

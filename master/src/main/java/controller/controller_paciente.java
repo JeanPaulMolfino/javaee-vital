@@ -266,4 +266,16 @@ public class controller_paciente {
         }
         return datos;
     }
+    
+    public List<Object> read_promedios(int idpaciente, String fecha) {
+        String[] variables = {Integer.toString(idpaciente), fecha};
+        String sql = "select * from promedios where idpaciente=? and DATE(timestap)=?;";
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
 }
