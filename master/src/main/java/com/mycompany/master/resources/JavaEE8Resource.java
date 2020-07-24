@@ -379,6 +379,20 @@ public class JavaEE8Resource {
     }
     
     @GET
+    @Path("/create_direccion2")
+    public Response create_direccion(
+            @QueryParam("cipaciente") String cipaciente,
+            @QueryParam("iddepartamento") int iddepartamento,
+            @QueryParam("localidad") String localidad, 
+            @QueryParam("direccion") String direccion) {
+        controller_paciente.getInstance().create_direccion2(cipaciente, iddepartamento, localidad, direccion);
+        return Response
+                .ok("ping")
+                .entity(null)
+                .build();
+    }
+    
+    @GET
     @Path("/list_direccion")
     @Produces(MediaType.APPLICATION_JSON)
     public Response list_direccion(@QueryParam("idpaciente") int idpaciente) {

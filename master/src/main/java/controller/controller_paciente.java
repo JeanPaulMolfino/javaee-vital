@@ -186,6 +186,17 @@ public class controller_paciente {
         }
     }
     
+    public void create_direccion2(String cipaciente, int iddepartamento, String localidad, String direccion) {
+        try {
+            int idpaciente = this.jdbcTemplate.queryForInt("select id from pacientes where ci="+cipaciente);
+            String[] variables = {Integer.toString(iddepartamento), localidad, direccion, Integer.toString(idpaciente)};
+            String sql = "insert into direcciones(iddepartamento, localidad, direccion, idpaciente) values (?,?,?,?)";
+            this.jdbcTemplate.update(sql, variables);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public List<Object> list_direccion(int idpaciente) {
         String sql = "select d.id, d.idpaciente, dep.id as iddepartamento, dep.nombre, d.localidad, d.direccion from direcciones as d inner join departamentos as dep on d.iddepartamento = dep.id where d.idpaciente="+Integer.toString(idpaciente);
         List<Object> datos = null;
