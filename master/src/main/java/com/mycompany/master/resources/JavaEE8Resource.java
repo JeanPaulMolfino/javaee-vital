@@ -389,4 +389,16 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
+    
+    @GET
+    @Path("/list_pacientescategoria")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response list_pacientescategoria(@QueryParam("idcategoria") int idcategoria) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_paciente.getInstance().list_pacientescategoria(idcategoria));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
 }

@@ -196,4 +196,28 @@ public class controller_paciente {
         }
         return datos;
     }
+    
+    public List<Object> list_pacientescategoria(int idcategoria) {
+        String sql = "select p.id, "
+                + "p.ci, p.nombre, "
+                + "p.apellido, "
+                + "p.edad, "
+                + "p.nacionalidad, "
+                + "p.email, "
+                + "c.nombre as categoria, "
+                + "n.estado, "
+                + "p.sexo "
+                + "from pacientes as p "
+                + "inner join niveles as n "
+                + "inner join categorias as c "
+                + "on p.idpeligro = n.id and p.idcategoria = c.id "
+                + "where p.idcategoria =" + idcategoria;;
+        List<Object> datos = null;
+        try {
+            datos = this.jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
 }
