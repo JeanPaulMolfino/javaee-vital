@@ -442,4 +442,18 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
+    
+    @GET
+    @Path("/read_promediosall")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response read_promediosall(
+            @QueryParam("idpaciente") int idpaciente,
+            @QueryParam("fecha") String fecha) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_paciente.getInstance().read_promediosall(idpaciente));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
 }
