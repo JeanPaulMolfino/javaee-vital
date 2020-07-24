@@ -39,8 +39,20 @@ public class controller_paciente {
         return false;
     }
 
-    public List<Object> read_paciente() {
-        String sql = "select * from pacientes";
+    public List<Object> read_pacientes() {
+        String sql = "select p.id, "
+                + "p.ci, p.nombre, "
+                + "p.apellido, "
+                + "p.edad, "
+                + "p.nacionalidad, "
+                + "p.email, "
+                + "c.nombre as categoria, "
+                + "n.estado, "
+                + "p.sexo "
+                + "from pacientes as p "
+                + "inner join niveles as n "
+                + "inner join categorias as c "
+                + "on p.idpeligro = n.id and p.idcategoria = c.id ";
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
@@ -222,7 +234,7 @@ public class controller_paciente {
                 + "inner join niveles as n "
                 + "inner join categorias as c "
                 + "on p.idpeligro = n.id and p.idcategoria = c.id "
-                + "where p.idcategoria =" + idcategoria;;
+                + "where p.idcategoria =" + idcategoria;
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
