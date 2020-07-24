@@ -416,4 +416,16 @@ public class JavaEE8Resource {
                 .entity(resultado)
                 .build();
     }
+    
+    @GET
+    @Path("/read_paciente")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response read_paciente(@QueryParam("idpaciente") int idpaciente) {
+        Gson convertir = new GsonBuilder().setPrettyPrinting().create();
+        String resultado = convertir.toJson(controller_paciente.getInstance().read_paciente(idpaciente));
+        return Response
+                .ok("ping")
+                .entity(resultado)
+                .build();
+    }
 }
