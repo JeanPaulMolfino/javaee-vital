@@ -187,7 +187,7 @@ public class controller_paciente {
     }
     
     public List<Object> list_direccion(int idpaciente) {
-        String sql = "select d.id, d.idpaciente, dep.nombre, d.localidad, d.direccion from direcciones as d inner join departamentos as dep on d.iddepartamento = dep.id where d.idpaciente="+Integer.toString(idpaciente);
+        String sql = "select d.id, d.idpaciente, dep.id as iddepartamento, dep.nombre, d.localidad, d.direccion from direcciones as d inner join departamentos as dep on d.iddepartamento = dep.id where d.idpaciente="+Integer.toString(idpaciente);
         List<Object> datos = null;
         try {
             datos = this.jdbcTemplate.queryForList(sql);
