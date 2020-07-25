@@ -18,18 +18,6 @@ function Header()
     // Line break
     $this->Ln(20);
 
-    //Aca van los nombres de las columnas
-    $this->Cell(50, 10, 'Fecha', 1, 0, 'C', 0);
-    $this->Cell(30, 10, 'Precion Max', 1, 0, 'C', 0);
-    $this->Cell(30, 10, 'Precion Min', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Volumen de Gas', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Frecuencia de Aporte', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Composicion de la Mezcla', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Humedad del Aire', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Temperatura de Entrada', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Temperatura de Salida', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Presion de Entrada', 1, 1, 'C', 0);
-    $this->Cell(30, 10, 'Presion de Salida', 1, 1, 'C', 0);
 }
 
 // Page footer
@@ -53,22 +41,35 @@ $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Arial','',12);
+    
+$this->SetFillColor(255,0,0);
+$this->SetTextColor(255);
+$this->SetDrawColor(128,0,0);
+$this->SetLineWidth(.3);
+$this->SetFont('','B');  
+$pdf->Cell(90, 10, "Nombre", 1, 0, 'C', 0);
+$this->SetFillColor(224,235,255);
+$this->SetTextColor(0);
+$this->SetFont('');
+$pdf->Cell(30, 10, $data['nombre'], 1, 0, 'C', 0);
 
-//aca recorremos los datos y generamos las tablas
-while($row = $data->fetch_assoc()){
-  $pdf->Cell(90, 10, $row['timestap'], 1, 0, 'C', 0);
-  $pdf->Cell(30, 10, $row['presionmaxima'], 1, 0, 'C', 0);
-  $pdf->Cell(30, 10, $row['presionminima'], 1, 1, 'C', 0);
-  $pdf->Cell(30, 10, $row['volgasaporta'], 1, 0, 'C', 0);
-  $pdf->Cell(30, 10, $row['frecaporte'], 1, 1, 'C', 0);
-  $pdf->Cell(30, 10, $row['compomezcla'], 1, 0, 'C', 0);
-  $pdf->Cell(30, 10, $row['humedadaire'], 1, 1, 'C', 0);
-  $pdf->Cell(30, 10, $row['tempentrada'], 1, 0, 'C', 0);
-  $pdf->Cell(30, 10, $row['tempsalida'], 1, 1, 'C', 0);
-  $pdf->Cell(30, 10, $row['presentrada'], 1, 0, 'C', 0);
-  $pdf->Cell(30, 10, $row['pressalida'], 1, 1, 'C', 0);
+$pdf->Cell(12);
+    
+$this->SetFillColor(255,0,0);
+$this->SetTextColor(255);
+$this->SetDrawColor(128,0,0);
+$this->SetLineWidth(.3);
+$this->SetFont('','B');
+$pdf->Cell(30, 10, "Apellido", 1, 1, 'C', 0);
+$this->SetFillColor(224,235,255);
+$this->SetTextColor(0);
+$this->SetFont('');
+$pdf->Cell(30, 10, $data['apellido'], 1, 0, 'C', 0);
+  
+//grafico
+$this->Image($graficaURL,10,6,30);
+    
 }
-
 $pdf->Output();
 }
 ?>
